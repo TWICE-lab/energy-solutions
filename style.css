@@ -1,0 +1,266 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+}
+
+header {
+  background-color: #063970;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+header ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+header a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+
+
+.highlights {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 40px 20px;
+  background: white;
+}
+
+.highlight {
+  flex: 1 1 300px;
+  margin: 20px;
+  padding: 20px;
+  background: #e3f2fd;
+  border-left: 5px solid #2196f3;
+}
+
+footer {
+  background-color: #063970;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+.service-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 40px 20px;
+  background: #f9f9f9;
+}
+
+.service-box {
+  background: white;
+  padding: 20px;
+  margin: 15px;
+  flex: 1 1 300px;
+  border-left: 5px solid #063970;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.service-box:hover {
+  transform: translateY(-5px);
+}
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 40px 20px;
+  background: #ffffff;
+}
+
+.project-card {
+  width: 300px;
+  margin: 20px;
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+  transform: scale(1.03);
+}
+
+.project-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.project-card p {
+  padding: 10px;
+  font-size: 0.95em;
+}
+.contact-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 40px 20px;
+  background: #fff;
+}
+
+form {
+  flex: 1 1 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+form input,
+form textarea {
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form button {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #063970;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #0a4c98;
+}
+
+.contact-info {
+  flex: 1 1 300px;
+  background: #f4f4f4;
+  padding: 20px;
+  border-left: 4px solid #063970;
+}
+
+.contact-info a {
+  color: #063970;
+  text-decoration: none;
+}
+.enhanced-hero {
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('renewable.png') no-repeat center center/cover;
+  color: white;
+  padding: 120px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: auto;
+}
+
+.hero-logo {
+  width: 100px;
+  margin-bottom: 20px;
+  animation: slideDown 1s ease-out;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1.5s ease-out forwards;
+}
+
+.fade-in-delay {
+  opacity: 0;
+  animation: fadeIn 2s ease-out forwards;
+  animation-delay: 0.5s;
+}
+
+.fade-in-delay2 {
+  opacity: 0;
+  animation: fadeIn 2.5s ease-out forwards;
+  animation-delay: 1s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+
+.hero .cta {
+  display: inline-block;
+  margin-top: 20px;
+  background-color: #f39c12;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.service-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 40px 20px;
+  gap: 20px;
+  background: #f4f4f4;
+}
+
+.service-card {
+  background: white;
+  width: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+.service-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.service-card h2 {
+  margin: 15px;
+  font-size: 1.2em;
+  color: #063970;
+}
+
+.service-card p {
+  margin: 0 15px 15px;
+  font-size: 0.95em;
+  color: #444;
+}
