@@ -9,18 +9,40 @@
 </head>
 <body>
 
-  <header>
-    <div class="logo">DAVAMEN</div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html" class="active">About</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+  <button id="backToTop" title="Go to top">&#8679;</button>
+  
+ <header>
+  <!-- Hamburger icon for mobile -->
+  <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+
+  <!-- Logo -->
+  <div class="logo">DAVAMEN</div>
+
+  <!-- Desktop horizontal menu -->
+  <nav class="desktop-menu">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Sidebar nav for mobile -->
+<nav id="sidebar">
+  <ul>
+   <li><a href="index.html">🏠 Home</a></li>
+<li><a href="about.html">👤 About</a></li>
+<li><a href="services.html">🔧 Services</a></li>
+<li><a href="projects.html">📂 Projects</a></li>
+<li><a href="contact.html">📞 Contact</a></li>
+
+  </ul>
+</nav>
+
+<div class="overlay" id="overlay"></div>
 
   <main class="page-content">
     <section class="intro">
@@ -69,6 +91,38 @@ Founded by David Kwabena Amenuku—a local electrician who grew tired of seeing 
       </ul>
     </section>
   </main>
+<!-- JavaScript -->
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("overlay");
 
+  toggle.onclick = () => {
+    sidebar.classList.add("show");
+    overlay.classList.add("show");
+  };
+
+  overlay.onclick = () => {
+    sidebar.classList.remove("show");
+    overlay.classList.remove("show");
+  };
+
+  document.querySelectorAll("#sidebar a").forEach(link => {
+    link.onclick = () => {
+      sidebar.classList.remove("show");
+      overlay.classList.remove("show");
+    };
+  });
+
+   window.onscroll = () => {
+    const btn = document.getElementById("backToTop");
+    btn.style.opacity = (document.documentElement.scrollTop > 200) ? "1" : "0";
+  };
+
+  // Scroll to top when clicked
+  document.getElementById("backToTop").onclick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+</script>
 </body>
 </html>

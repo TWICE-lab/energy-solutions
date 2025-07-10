@@ -8,43 +8,135 @@
 </head>
 <body>
 
-  <header>
-    <div class="logo">DAVAMEN</div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="projects.html" class="active">Projects</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+  <button id="backToTop" title="Go to top">&#8679;</button>
+
+<header>
+  <!-- Hamburger icon for mobile -->
+  <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+
+  <!-- Logo -->
+  <div class="logo">DAVAMEN</div>
+
+  <!-- Desktop horizontal menu -->
+  <nav class="desktop-menu">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Sidebar nav for mobile -->
+<nav id="sidebar">
+  <ul>
+   <li><a href="index.html">🏠 Home</a></li>
+<li><a href="about.html">👤 About</a></li>
+<li><a href="services.html">🔧 Services</a></li>
+<li><a href="projects.html">📂 Projects</a></li>
+<li><a href="contact.html">📞 Contact</a></li>
+
+  </ul>
+</nav>
+
+<div class="overlay" id="overlay"></div>
 
   <main class="page-content">
     <section class="intro">
       <h1>Completed Projects</h1>
       <p>Take a look at some of our recent electrical and solar installations across Ghana.</p>
-    </section>
 
-    <section class="gallery">
-      <div class="project-card">
-        <img src="renewable.png" alt="Solar Installation at Tarkwa School">
-        <p><strong>Solar Installation - Tarkwa School</strong><br>10kW solar system installed for lighting and computers.</p>
-      </div>
-      <div class="project-card">
-        <img src="renewable.png" alt="Industrial Wiring at Ayanfuri Factory">
-        <p><strong>Industrial Wiring - Ayanfuri</strong><br>Full rewiring for a small-scale production facility.</p>
-      </div>
-      <div class="project-card">
-        <img src="renewable.png" alt="Electric Fence & CCTV at Residence">
-        <p><strong>Security Setup - Kumasi</strong><br>Electric fencing and 6 CCTV cameras at private home.</p>
-      </div>
-      <!-- Add more cards as needed -->
-    </section>
+    <section class="project-gallery-grid">
+  <h1>Our Recent Projects</h1>
+  <div class="project-cards">
+
+    <!-- Project 1 -->
+    <div class="project-card">
+      <a href="IMAGES/image8.jpg" class="lightbox">
+        <img src="IMAGES/image8.jpg" alt="Solar Install Ayanfuri">
+      </a>
+      <h2>Solar Install – Ayanfuri</h2>
+      <p>Complete rooftop solar power for residential home.</p>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="project-card">
+      <a href="IMAGES/image6.jpg" class="lightbox">
+        <img src="IMAGES/image6.jpg" alt="Hostel Wiring Cape Coast">
+      </a>
+      <h2>Hostel Wiring – Cape Coast</h2>
+      <p>Full electrical wiring for student housing complex.</p>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="project-card">
+      <a href="IMAGES/image2.jpg" class="lightbox">
+        <img src="IMAGES/image2.jpg" alt="CCTV Installation">
+      </a>
+      <h2>CCTV & Fence – School</h2>
+      <p>24/7 security system for school compound.</p>
+    </div>
+
+    <!-- Project 4 -->
+    <div class="project-card">
+      <a href="IMAGES/image14.jpg" class="lightbox">
+        <img src="IMAGES/image14.jpg" alt="Hybrid Solar + Generator">
+      </a>
+      <h2>Hybrid Solar + Generator</h2>
+      <p>Solar setup with auto-switching backup generator.</p>
+    </div>
+
+  </div>
+</section>
+
+</section>
+
+
+
   </main>
 
+ <div id="lightboxOverlay" class="lightbox-overlay" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" alt="Project Preview" />
+</div>
 
+<!-- JavaScript -->
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("overlay");
+
+  toggle.onclick = () => {
+    sidebar.classList.add("show");
+    overlay.classList.add("show");
+  };
+
+  overlay.onclick = () => {
+    sidebar.classList.remove("show");
+    overlay.classList.remove("show");
+  };
+
+  document.querySelectorAll("#sidebar a").forEach(link => {
+    link.onclick = () => {
+      sidebar.classList.remove("show");
+      overlay.classList.remove("show");
+    };
+  });
+
+   window.onscroll = () => {
+    const btn = document.getElementById("backToTop");
+    btn.style.opacity = (document.documentElement.scrollTop > 200) ? "1" : "0";
+  };
+
+  // Scroll to top when clicked
+  document.getElementById("backToTop").onclick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+
+ 
+</script>
 
 </body>
 </html>
