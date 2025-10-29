@@ -3,27 +3,755 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Our Projects - Davamen Electrical & Solar Solutions</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Board of Directors & Sponsors - Davamen Electrical & Solar Solutions</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0d47a1;
+      --primary-light: #5472d3;
+      --primary-dark: #002171;
+      --secondary: #ff9800;
+      --secondary-light: #ffc947;
+      --secondary-dark: #c66900;
+      --dark: #263238;
+      --light: #f5f7fa;
+      --gray: #78909c;
+      --white: #ffffff;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: var(--light);
+      overflow-x: hidden;
+    }
+
+    /* Header Styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: var(--shadow);
+      z-index: 1000;
+      transition: var(--transition);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header.scrolled {
+      padding: 0.7rem 2rem;
+      background-color: var(--white);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+    }
+
+    .logo span {
+      color: var(--secondary);
+    }
+
+    .desktop-menu ul {
+      display: flex;
+      list-style: none;
+    }
+
+    .desktop-menu li {
+      margin-left: 2rem;
+    }
+
+    .desktop-menu a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      position: relative;
+      transition: var(--transition);
+      padding: 0.5rem 0;
+    }
+
+    .desktop-menu a:hover {
+      color: var(--primary);
+    }
+
+    .desktop-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .desktop-menu a:hover::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--dark);
+    }
+
+    /* SIDEBAR MENU (mobile) */
+/* 🌟 MODERN, SOFT SIDEBAR */
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: -270px;
+  width: 250px;
+  height: 100%;
+  background-color: #f1f3f5; /* soft light gray */
+  backdrop-filter: blur(4px);
+  color: #2c3e50; /* dark slate for better readability */
+  transition: left 0.3s ease;
+  z-index: 1000;
+  padding-top: 70px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.06);
+  border-right: 1px solid #dcdfe2;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  font-size: 15px; /* slightly smaller text */
+  line-height: 1.6;
+}
+
+#sidebar.show {
+  left: 0;
+}
+
+#sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#sidebar li {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+#sidebar a {
+  color: #2c3e50;
+  text-decoration: none;
+  display: block;
+  padding: 14px 20px;
+  font-weight: 500;
+  font-size: 15px;
+  border: 1px solid transparent;
+  border-left: 4px solid transparent;
+  margin: 8px 15px;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  transition: all 0.25s ease;
+}
+
+#sidebar a:hover {
+  background-color: #e6ecf0;
+  border-left: 4px solid #063970;
+  color: #1c2d3a;
+}
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Page Content */
+    .page-content {
+      padding-top: 100px;
+    }
+
+    /* Intro Section */
+    .intro {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      color: var(--white);
+      margin-bottom: 3rem;
+    }
+
+    .intro h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .intro p {
+      font-size: 1.2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease 0.3s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Board Section */
+    .board-section {
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      color: var(--primary);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .section-title.animate {
+      opacity: 1;
+      transform: translateY(0);
+      transition: var(--transition);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--gray);
+      margin-bottom: 3rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 1.1rem;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .section-subtitle.animate {
+      opacity: 1;
+      transform: translateY(0);
+      transition: var(--transition);
+      transition-delay: 0.2s;
+    }
+
+    .board-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+    }
+
+    .board-member {
+      background-color: var(--white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .board-member.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .board-member:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .member-image {
+      height: 280px;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .member-image i {
+      font-size: 5rem;
+      color: var(--white);
+      opacity: 0.8;
+    }
+
+    .member-content {
+      padding: 2rem;
+    }
+
+    .member-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .member-content .position {
+      font-size: 1.1rem;
+      color: var(--secondary);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .member-content p {
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .member-highlights {
+      background-color: var(--light);
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+    }
+
+    .member-highlights ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .member-highlights li {
+      padding: 0.3rem 0;
+      color: var(--dark);
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .member-highlights li i {
+      color: var(--secondary);
+      margin-right: 0.8rem;
+      margin-top: 0.2rem;
+      font-size: 0.9rem;
+    }
+
+    /* Sponsors Section */
+    .sponsors-section {
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+    }
+
+    .sponsors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .sponsor-card {
+      background-color: var(--white);
+      padding: 2.5rem 2rem;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .sponsor-card.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .sponsor-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .sponsor-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      background-color: var(--primary-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--white);
+      transition: var(--transition);
+    }
+
+    .sponsor-card:hover .sponsor-icon {
+      background-color: var(--secondary);
+      transform: scale(1.1);
+    }
+
+    .sponsor-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .sponsor-card p {
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .sponsor-type {
+      display: inline-block;
+      background-color: var(--secondary-light);
+      color: var(--secondary-dark);
+      padding: 0.3rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* Partners Section */
+    .partners-section {
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+    }
+
+    .partners-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 3rem;
+    }
+
+    .partner-card {
+      background-color: var(--white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .partner-card.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .partner-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .partner-header {
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      padding: 2rem;
+      color: var(--white);
+      text-align: center;
+    }
+
+    .partner-header i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.9;
+    }
+
+    .partner-header h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .partner-header .organization {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .partner-content {
+      padding: 2rem;
+    }
+
+    .partner-content p {
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .partner-highlights {
+      background-color: var(--light);
+      padding: 1rem;
+      border-radius: 5px;
+    }
+
+    .partner-highlights ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .partner-highlights li {
+      padding: 0.3rem 0;
+      color: var(--dark);
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .partner-highlights li i {
+      color: var(--secondary);
+      margin-right: 0.8rem;
+      margin-top: 0.2rem;
+      font-size: 0.9rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      color: var(--white);
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .cta-section h2.animate {
+      opacity: 1;
+      transform: translateY(0);
+      transition: var(--transition);
+    }
+
+    .cta-section p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .cta-section p.animate {
+      opacity: 1;
+      transform: translateY(0);
+      transition: var(--transition);
+      transition-delay: 0.2s;
+    }
+
+    .cta {
+      display: inline-block;
+      background-color: var(--secondary);
+      color: var(--white);
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+    }
+
+    .cta:hover {
+      background-color: var(--secondary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: var(--white);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo span {
+      color: var(--secondary);
+    }
+
+    .footer-text {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .social-links a {
+      color: var(--white);
+      font-size: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      color: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 1.5rem;
+      width: 100%;
+    }
+
+    /* Back to Top Button */
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      opacity: 0;
+      visibility: hidden;
+      z-index: 999;
+    }
+
+    #backToTop.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #backToTop:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-3px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .desktop-menu {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .intro h1 {
+        font-size: 2.5rem;
+      }
+
+      .section-title {
+        font-size: 2.2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .intro h1 {
+        font-size: 2rem;
+      }
+
+      .intro p {
+        font-size: 1rem;
+      }
+
+      .board-grid,
+      .sponsors-grid,
+      .partners-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-section h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .intro h1 {
+        font-size: 1.8rem;
+      }
+
+      .board-section,
+      .sponsors-section,
+      .partners-section {
+        padding: 0 1.5rem;
+      }
+
+      .member-content,
+      .partner-content {
+        padding: 1.5rem;
+      }
+
+      .sponsor-card {
+        padding: 2rem 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <button id="backToTop" title="Go to top">&#8679;</button>
+  <button id="backToTop" title="Go to top"><i class="fas fa-chevron-up"></i></button>
 
-<header>
-  <!-- Hamburger icon for mobile -->
-  <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+  <header>
+    <div class="menu-toggle" id="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
 
-  <!-- Logo -->
-  <div class="logo">DAVAMEN</div>
+    <div class="logo">VOL<span>TIX</span></div>
 
+   
   <!-- Desktop horizontal menu -->
   <nav class="desktop-menu">
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="services.html">Services</a></li>
-      <li><a href="projects.html">Projects</a></li>
+      <li><a href="projects.html">Board & Sponsors</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
@@ -35,108 +763,271 @@
    <li><a href="index.html">🏠 Home</a></li>
 <li><a href="about.html">👤 About</a></li>
 <li><a href="services.html">🔧 Services</a></li>
-<li><a href="projects.html">📂 Projects</a></li>
+<li><a href="projects.html">👤 Board & Sponsors</a></li>
 <li><a href="contact.html">📞 Contact</a></li>
 
   </ul>
 </nav>
 
-<div class="overlay" id="overlay"></div>
+
+  <div class="overlay" id="overlay"></div>
 
   <main class="page-content">
     <section class="intro">
-      <h1>Completed Projects</h1>
-      <p>Take a look at some of our recent electrical and solar installations across Ghana.</p>
+      <h1>Board of Directors & Sponsors</h1>
+      <p>At the heart of our organization lies a dedicated and visionary team of leaders, supporters, and collaborators who share our commitment to innovation, excellence, and social impact.</p>
+    </section>
 
-    <section class="project-gallery-grid">
-  <h1>Our Recent Projects</h1>
-  <div class="project-cards">
+    <section class="board-section">
+      <h2 class="section-title">Our Board of Directors</h2>
+      <p class="section-subtitle">Our Board of Directors brings a wealth of experience, spiritual guidance, and mentorship. Each member is deeply invested in the success and integrity of our vision.</p>
+      
+      <div class="board-grid">
+        <div class="board-member">
+          <div class="member-image">
+            <i class="fas fa-user-tie"></i>
+          </div>
+          <div class="member-content">
+            <h3>Mr. Michael Amenuku</h3>
+            <p class="position">Board Member & Strategic Advisor</p>
+            <p>A respected leader and advisor, bringing years of experience and commitment to strategic development and organizational growth.</p>
+            <div class="member-highlights">
+              <ul>
+                <li><i class="fas fa-check"></i> Strategic development expertise</li>
+                <li><i class="fas fa-check"></i> Organizational growth leadership</li>
+                <li><i class="fas fa-check"></i> Multi-talented contributor</li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-    <!-- Project 1 -->
-    <div class="project-card">
-      <a href="IMAGES/image8.jpg" class="lightbox">
-        <img src="IMAGES/image8.jpg" alt="Solar Install Ayanfuri">
-      </a>
-      <h2>Solar Install – Ayanfuri</h2>
-      <p>Complete rooftop solar power for residential home.</p>
-    </div>
+        <div class="board-member">
+          <div class="member-image">
+            <i class="fas fa-church"></i>
+          </div>
+          <div class="member-content">
+            <h3>Mr. Daniel Akuaku</h3>
+            <p class="position">Board Member & Community Liaison</p>
+            <p>An Elder of the Church of Pentecost and a seasoned professional with the National Petroleum Authority. He is an alumnus of Pope John Senior High School and a valued mentor and partner in our development initiatives.</p>
+            <div class="member-highlights">
+              <ul>
+                <li><i class="fas fa-check"></i> Elder, Church of Pentecost</li>
+                <li><i class="fas fa-check"></i> National Petroleum Authority professional</li>
+                <li><i class="fas fa-check"></i> Pope John SHS alumnus</li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-    <!-- Project 2 -->
-    <div class="project-card">
-      <a href="IMAGES/image6.jpg" class="lightbox">
-        <img src="IMAGES/image6.jpg" alt="Hostel Wiring Cape Coast">
-      </a>
-      <h2>Hostel Wiring – Cape Coast</h2>
-      <p>Full electrical wiring for student housing complex.</p>
-    </div>
+        <div class="board-member">
+          <div class="member-image">
+            <i class="fas fa-utensils"></i>
+          </div>
+          <div class="member-content">
+            <h3>Mrs. Joyce Darko</h3>
+            <p class="position">Board Member & Operations Advisor</p>
+            <p>A seasoned caterer with Group Five Company, and a strong female presence on the board, contributing her expertise in operations, hospitality, and community engagement.</p>
+            <div class="member-highlights">
+              <ul>
+                <li><i class="fas fa-check"></i> Professional caterer with Group Five Company</li>
+                <li><i class="fas fa-check"></i> Operations and hospitality expertise</li>
+                <li><i class="fas fa-check"></i> Community engagement specialist</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <!-- Project 3 -->
-    <div class="project-card">
-      <a href="IMAGES/image2.jpg" class="lightbox">
-        <img src="IMAGES/image2.jpg" alt="CCTV Installation">
-      </a>
-      <h2>CCTV & Fence – School</h2>
-      <p>24/7 security system for school compound.</p>
-    </div>
+    <section class="sponsors-section">
+      <h2 class="section-title">Our Valued Sponsors</h2>
+      <p class="section-subtitle">Our sponsors have invested not only resources but also belief in our mission. They are pillars of support who empower our work and amplify our impact.</p>
+      
+      <div class="sponsors-grid">
+        <div class="sponsor-card">
+          <div class="sponsor-icon">
+            <i class="fas fa-hammer"></i>
+          </div>
+          <h3>Mr. Prosper Amenuku</h3>
+          <p>A professional carpenter and former furniture supplier to Obuasi Anglogold Ashanti, Elder of the Church of Pentecost, and a proud father of seven. His craftsmanship, values, and support embody the foundation of our growth.</p>
+          <span class="sponsor-type">Foundational Sponsor</span>
+        </div>
 
-    <!-- Project 4 -->
-    <div class="project-card">
-      <a href="IMAGES/image14.jpg" class="lightbox">
-        <img src="IMAGES/image14.jpg" alt="Hybrid Solar + Generator">
-      </a>
-      <h2>Hybrid Solar + Generator</h2>
-      <p>Solar setup with auto-switching backup generator.</p>
-    </div>
+        <div class="sponsor-card">
+          <div class="sponsor-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h3>Mr. Michael Amenuku</h3>
+          <p>A strategic thinker and multi-talented individual, serving as both board member and sponsor, whose contributions span financial support and mentorship.</p>
+          <span class="sponsor-type">Strategic Sponsor</span>
+        </div>
 
-  </div>
-</section>
+        <div class="sponsor-card">
+          <div class="sponsor-icon">
+            <i class="fas fa-rocket"></i>
+          </div>
+          <h3>Miss Dorcas Martison</h3>
+          <p>A young and vibrant supporter, championing the cause of innovation and youth-led impact in technology and development.</p>
+          <span class="sponsor-type">Innovation Sponsor</span>
+        </div>
 
-</section>
+        <div class="sponsor-card">
+          <div class="sponsor-icon">
+            <i class="fas fa-globe-americas"></i>
+          </div>
+          <h3>Mr. Collins Amenuku</h3>
+          <p>Based in the United States, Collins brings global insights and financial sponsorship, bridging the gap between local impact and international opportunity.</p>
+          <span class="sponsor-type">International Sponsor</span>
+        </div>
 
+        <div class="sponsor-card">
+          <div class="sponsor-icon">
+            <i class="fas fa-hands-helping"></i>
+          </div>
+          <h3>Mrs. Joyce Darko</h3>
+          <p>In addition to her role on the board, she also supports our initiatives through sponsorship and logistics coordination, particularly in food and event management.</p>
+          <span class="sponsor-type">Logistics Sponsor</span>
+        </div>
+      </div>
+    </section>
 
+    <section class="partners-section">
+      <h2 class="section-title">Strategic Partners</h2>
+      <p class="section-subtitle">Our partners walk with us hand-in-hand to implement real solutions. They contribute technical knowledge, institutional connections, and intellectual strength to advance our mission.</p>
+      
+      <div class="partners-grid">
+        <div class="partner-card">
+          <div class="partner-header">
+            <i class="fas fa-handshake"></i>
+            <h3>Mr. Daniel Akuaku</h3>
+            <p class="organization">National Petroleum Authority</p>
+          </div>
+          <div class="partner-content">
+            <p>Elder, NPA professional, and long-time partner whose collaboration has been instrumental in shaping our energy and community outreach projects.</p>
+            <div class="partner-highlights">
+              <ul>
+                <li><i class="fas fa-check"></i> Energy sector expertise</li>
+                <li><i class="fas fa-check"></i> Community outreach leadership</li>
+                <li><i class="fas fa-check"></i> Long-term strategic partnership</li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
+        <div class="partner-card">
+          <div class="partner-header">
+            <i class="fas fa-graduation-cap"></i>
+            <h3>Mr. Philip Awabilla</h3>
+            <p class="organization">University of Energy and Natural Resources</p>
+          </div>
+          <div class="partner-content">
+            <p>An award-winning STEM student from the University of Energy and Natural Resources, recognized for academic excellence. Philip brings fresh ideas and technical insight to our innovation and education-focused programs.</p>
+            <div class="partner-highlights">
+              <ul>
+                <li><i class="fas fa-check"></i> Award-winning STEM student</li>
+                <li><i class="fas fa-check"></i> Technical innovation expertise</li>
+                <li><i class="fas fa-check"></i> Education program development</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <h2>Join Our Mission</h2>
+      <p>Interested in supporting our work or becoming a sponsor? We'd love to discuss partnership opportunities.</p>
+      <a href="contact.html" class="cta">Get in Touch</a>
+    </section>
   </main>
 
- <div id="lightboxOverlay" class="lightbox-overlay" onclick="closeLightbox()">
-  <img id="lightboxImg" src="" alt="Project Preview" />
-</div>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">VOL<span>TIX</span></div>
+      <p class="footer-text">Leading electrical and solar solutions provider in Ghana, committed to sustainable energy and community development.</p>
+      
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      
+      <p class="copyright">&copy; 2025 voltix Electrical & Solar Solutions | Powered by Sustainability</p>
+    </div>
+  </footer>
 
-<!-- JavaScript -->
-<script>
-  const toggle = document.getElementById("menu-toggle");
-  const sidebar = document.getElementById("sidebar");
-  const overlay = document.getElementById("overlay");
+  <script>
+    // Mobile menu functionality
+    const toggle = document.getElementById("menu-toggle");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
 
-  toggle.onclick = () => {
-    sidebar.classList.add("show");
-    overlay.classList.add("show");
-  };
+    toggle.onclick = () => {
+      sidebar.classList.add("show");
+      overlay.classList.add("show");
+    };
 
-  overlay.onclick = () => {
-    sidebar.classList.remove("show");
-    overlay.classList.remove("show");
-  };
-
-  document.querySelectorAll("#sidebar a").forEach(link => {
-    link.onclick = () => {
+    overlay.onclick = () => {
       sidebar.classList.remove("show");
       overlay.classList.remove("show");
     };
-  });
 
-   window.onscroll = () => {
-    const btn = document.getElementById("backToTop");
-    btn.style.opacity = (document.documentElement.scrollTop > 200) ? "1" : "0";
-  };
+    document.querySelectorAll("#sidebar a").forEach(link => {
+      link.onclick = () => {
+        sidebar.classList.remove("show");
+        overlay.classList.remove("show");
+      };
+    });
 
-  // Scroll to top when clicked
-  document.getElementById("backToTop").onclick = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+    // Back to top button
+    const backToTopBtn = document.getElementById("backToTop");
+    
+    window.onscroll = () => {
+      // Show/hide back to top button
+      if (document.documentElement.scrollTop > 300) {
+        backToTopBtn.classList.add("show");
+      } else {
+        backToTopBtn.classList.remove("show");
+      }
+      
+      // Header background on scroll
+      if (document.documentElement.scrollTop > 100) {
+        document.querySelector("header").classList.add("scrolled");
+      } else {
+        document.querySelector("header").classList.remove("scrolled");
+      }
+      
+      // Animate elements on scroll
+      animateOnScroll();
+    };
 
+    // Scroll to top when clicked
+    backToTopBtn.onclick = () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
 
- 
-</script>
+    // Animation on scroll function
+    function animateOnScroll() {
+      const elements = document.querySelectorAll('.section-title, .section-subtitle, .board-member, .sponsor-card, .partner-card, .cta-section h2, .cta-section p');
+      
+      elements.forEach((element, index) => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.2;
+        
+        if (elementPosition < screenPosition) {
+          // Add delay based on element index for staggered animation
+          element.style.transitionDelay = `${index * 0.1}s`;
+          element.classList.add('animate');
+        }
+      });
+    }
+
+    // Initialize animations on page load
+    window.onload = () => {
+      animateOnScroll();
+    };
+  </script>
 
 </body>
 </html>

@@ -1,30 +1,658 @@
-<!-- about.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About Us - Davamen Electrical & Solar Solutions</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0d47a1;
+      --primary-light: #5472d3;
+      --primary-dark: #002171;
+      --secondary: #ff9800;
+      --secondary-light: #ffc947;
+      --secondary-dark: #c66900;
+      --dark: #263238;
+      --light: #f5f7fa;
+      --gray: #78909c;
+      --white: #ffffff;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: var(--light);
+      overflow-x: hidden;
+    }
+
+    /* Header Styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: var(--shadow);
+      z-index: 1000;
+      transition: var(--transition);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header.scrolled {
+      padding: 0.7rem 2rem;
+      background-color: var(--white);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+    }
+
+    .logo span {
+      color: var(--secondary);
+    }
+
+    .desktop-menu ul {
+      display: flex;
+      list-style: none;
+    }
+
+    .desktop-menu li {
+      margin-left: 2rem;
+    }
+
+    .desktop-menu a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      position: relative;
+      transition: var(--transition);
+      padding: 0.5rem 0;
+    }
+
+    .desktop-menu a:hover {
+      color: var(--primary);
+    }
+
+    .desktop-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .desktop-menu a:hover::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--dark);
+    }
+
+    
+   /* SIDEBAR MENU (mobile) */
+/* 🌟 MODERN, SOFT SIDEBAR */
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: -270px;
+  width: 250px;
+  height: 100%;
+  background-color: #f1f3f5; /* soft light gray */
+  backdrop-filter: blur(4px);
+  color: #2c3e50; /* dark slate for better readability */
+  transition: left 0.3s ease;
+  z-index: 1000;
+  padding-top: 70px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.06);
+  border-right: 1px solid #dcdfe2;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  font-size: 15px; /* slightly smaller text */
+  line-height: 1.6;
+}
+
+#sidebar.show {
+  left: 0;
+}
+
+#sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#sidebar li {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+#sidebar a {
+  color: #2c3e50;
+  text-decoration: none;
+  display: block;
+  padding: 14px 20px;
+  font-weight: 500;
+  font-size: 15px;
+  border: 1px solid transparent;
+  border-left: 4px solid transparent;
+  margin: 8px 15px;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  transition: all 0.25s ease;
+}
+
+#sidebar a:hover {
+  background-color: #e6ecf0;
+  border-left: 4px solid #063970;
+  color: #1c2d3a;
+}
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Page Content */
+    .page-content {
+      padding-top: 100px;
+    }
+
+    /* Intro Section */
+    .intro {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      color: var(--white);
+      margin-bottom: 3rem;
+    }
+
+    .intro h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .intro p {
+      font-size: 1.2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease 0.3s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Mission & Vision Section */
+    .mission-vision {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+    }
+
+    .mission-vision > div {
+      background-color: var(--white);
+      padding: 3rem;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .mission-vision > div.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mission-vision > div:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .mission-vision h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .mission-vision h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background-color: var(--secondary);
+    }
+
+    .mission-vision p {
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* Values Section */
+    .values {
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .values h2 {
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: var(--primary);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .values h2.animate {
+      opacity: 1;
+      transform: translateY(0);
+      transition: var(--transition);
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .value-card {
+      background-color: var(--white);
+      padding: 2.5rem 2rem;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .value-card.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .value-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .value-icon {
+      width: 70px;
+      height: 70px;
+      background-color: var(--primary-light);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 1.8rem;
+      transition: var(--transition);
+    }
+
+    .value-card:hover .value-icon {
+      background-color: var(--secondary);
+      transform: scale(1.1);
+    }
+
+    .value-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .value-card p {
+      color: var(--gray);
+    }
+
+    /* Founder Section */
+    .founder {
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+    }
+
+    .founder-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .founder-image {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+
+    .founder-image.animate {
+      opacity: 1;
+      transform: translateX(0);
+      transition: var(--transition);
+    }
+
+    .founder-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: var(--transition);
+    }
+
+    .founder-image:hover img {
+      transform: scale(1.05);
+    }
+
+    .founder-info {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+
+    .founder-info.animate {
+      opacity: 1;
+      transform: translateX(0);
+      transition: var(--transition);
+    }
+
+    .founder-info h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+
+    .founder-info h3 {
+      font-size: 1.2rem;
+      color: var(--secondary);
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+
+    .founder-info p {
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      color: var(--white);
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .cta-section h2.animate {
+      opacity: 1;
+      transform: translateY(0);
+      transition: var(--transition);
+    }
+
+    .cta-section p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .cta-section p.animate {
+      opacity: 1;
+      transform: translateY(0);
+      transition: var(--transition);
+      transition-delay: 0.2s;
+    }
+
+    .cta {
+      display: inline-block;
+      background-color: var(--secondary);
+      color: var(--white);
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+    }
+
+    .cta:hover {
+      background-color: var(--secondary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: var(--white);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo span {
+      color: var(--secondary);
+    }
+
+    .footer-text {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .social-links a {
+      color: var(--white);
+      font-size: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      color: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 1.5rem;
+      width: 100%;
+    }
+
+    /* Back to Top Button */
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      opacity: 0;
+      visibility: hidden;
+      z-index: 999;
+    }
+
+    #backToTop.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #backToTop:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-3px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .desktop-menu {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .intro h1 {
+        font-size: 2.5rem;
+      }
+
+      .mission-vision {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .intro h1 {
+        font-size: 2rem;
+      }
+
+      .intro p {
+        font-size: 1rem;
+      }
+
+      .values h2 {
+        font-size: 2rem;
+      }
+
+      .cta-section h2 {
+        font-size: 2rem;
+      }
+
+      .founder-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .intro h1 {
+        font-size: 1.8rem;
+      }
+
+      .mission-vision {
+        padding: 0 1.5rem;
+      }
+
+      .mission-vision > div {
+        padding: 2rem;
+      }
+
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <button id="backToTop" title="Go to top">&#8679;</button>
+  <button id="backToTop" title="Go to top"><i class="fas fa-chevron-up"></i></button>
   
- <header>
-  <!-- Hamburger icon for mobile -->
-  <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+  <header>
+    <div class="menu-toggle" id="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
 
-  <!-- Logo -->
-  <div class="logo">DAVAMEN</div>
+    <div class="logo">VOL<span>TIX</span></div>
 
-  <!-- Desktop horizontal menu -->
+    <!-- Desktop horizontal menu -->
   <nav class="desktop-menu">
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="services.html">Services</a></li>
-      <li><a href="projects.html">Projects</a></li>
+      <li><a href="projects.html">Board & Sponsors</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
@@ -36,93 +664,193 @@
    <li><a href="index.html">🏠 Home</a></li>
 <li><a href="about.html">👤 About</a></li>
 <li><a href="services.html">🔧 Services</a></li>
-<li><a href="projects.html">📂 Projects</a></li>
+<li><a href="projects.html">👤 Board & Sponsors</a></li>
 <li><a href="contact.html">📞 Contact</a></li>
 
   </ul>
 </nav>
 
-<div class="overlay" id="overlay"></div>
+
+  <div class="overlay" id="overlay"></div>
 
   <main class="page-content">
     <section class="intro">
       <h1>About Us</h1>
-      <p>We're a team of passionate energy problem-solvers who believe reliable power should be simple, affordable, and sustainable.
+      <p>We're a team of passionate energy problem-solvers who believe reliable power should be simple, affordable, and sustainable. Founded by David Kwabena Amenuku - an electrical engineer with hands-on experience from industrial sites to family homes - we bridge technical expertise with genuine care for our customers.</p>
+    </section>
 
-Founded by David Kwabena Amenuku - an electrical engineer with hands-on experience from industrial sites to family homes - we bridge technical expertise with genuine care for our customers.
-
-What makes us different?
-• We listen first, then design solutions that actually fit your life
-• We train local technicians because knowledge should empower communities
-• We stand by our work - from the solar panels we install to the skills we teach
-
-At our core, we're not just an electrical company - we're your partners in building a brighter, more energy-secure future for Ghana.</p>
+    <section class="founder">
+      <div class="founder-content">
+        <div class="founder-image">
+          <img src="IMAGES/founder.jpg" alt="David Kwabena Amenuku - Founder">
+        </div>
+        <div class="founder-info">
+          <h2>David Kwabena Amenuku</h2>
+          <h3>Founder & Lead Engineer</h3>
+          <p>With years of hands-on experience from industrial sites to family homes, David founded Davamen to bridge technical expertise with genuine care for customers. His vision is to make reliable energy accessible to all Ghanaians while creating opportunities through skills training.</p>
+          <p>What makes us different? We listen first, then design solutions that actually fit your life. We train local technicians because knowledge should empower communities. We stand by our work - from the solar panels we install to the skills we teach.</p>
+          <p>At our core, we're not just an electrical company - we're your partners in building a brighter, more energy-secure future for Ghana.</p>
+        </div>
+      </div>
     </section>
 
     <section class="mission-vision">
       <div>
         <h2>Our Mission</h2>
-        <p>We’re on a simple mission: to bring light, opportunity, and peace of mind to every community we serve.
-
-For families, that means:
-No more sleepless nights over blackouts or sky-high bills
-No more worrying about unsafe wiring or security
-Just reliable power—clean, affordable, and tailored to your life
-For Ghana’s future, that means:
-Real skills for real people through hands-on training
-Good jobs created by certifying the next generation of technicians
-Stronger communities powered by sustainable energy
-Founded by David Kwabena Amenuku—a local electrician who grew tired of seeing energy struggles hold people back—we don’t just install systems. We build relationships and hope, one solar panel, one repaired wire, one trained graduate at a time.</p>
+        <p>We're on a simple mission: to bring light, opportunity, and peace of mind to every community we serve.</p>
+        <p>For families, that means: No more sleepless nights over blackouts or sky-high bills. No more worrying about unsafe wiring or security. Just reliable power—clean, affordable, and tailored to your life.</p>
+        <p>For Ghana's future, that means: Real skills for real people through hands-on training. Good jobs created by certifying the next generation of technicians. Stronger communities powered by sustainable energy.</p>
+        <p>We don't just install systems. We build relationships and hope, one solar panel, one repaired wire, one trained graduate at a time.</p>
       </div>
       <div>
         <h2>Our Vision</h2>
         <p>To become a trusted leader in solar and electrical services across Africa, improving energy access while promoting environmental sustainability.</p>
+        <p>We envision a future where every Ghanaian home and business has access to reliable, affordable power that doesn't compromise our environment. Where communities are empowered through skills development and local expertise.</p>
+        <p>Our vision extends beyond just providing services - we're building a movement toward energy independence and sustainable development across the continent.</p>
       </div>
     </section>
 
     <section class="values">
       <h2>Our Core Values</h2>
-      <ul>
-        <li>✔️ Quality & Safety</li>
-        <li>✔️ Sustainability</li>
-        <li>✔️ Customer Satisfaction</li>
-        <li>✔️ Integrity</li>
-        <li>✔️ Innovation</li>
-      </ul>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-award"></i>
+          </div>
+          <h3>Quality & Safety</h3>
+          <p>We never compromise on quality or safety standards in all our installations and services.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-leaf"></i>
+          </div>
+          <h3>Sustainability</h3>
+          <p>We're committed to environmentally responsible solutions that benefit both people and planet.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-smile"></i>
+          </div>
+          <h3>Customer Satisfaction</h3>
+          <p>Your satisfaction is our priority. We listen carefully and deliver solutions that exceed expectations.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <h3>Integrity</h3>
+          <p>We operate with honesty and transparency in all our business dealings and customer relationships.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h3>Innovation</h3>
+          <p>We continuously seek better ways to solve energy challenges and improve our services.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Community</h3>
+          <p>We invest in local talent and contribute to community development through skills training.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <h2>Ready to Work With Us?</h2>
+      <p>Contact us today to discuss your energy needs and discover how we can help power your future.</p>
+      <a href="contact.html" class="cta">Get in Touch</a>
     </section>
   </main>
-<!-- JavaScript -->
-<script>
-  const toggle = document.getElementById("menu-toggle");
-  const sidebar = document.getElementById("sidebar");
-  const overlay = document.getElementById("overlay");
 
-  toggle.onclick = () => {
-    sidebar.classList.add("show");
-    overlay.classList.add("show");
-  };
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">VOL<span>TIX</span></div>
+      <p class="footer-text">Leading electrical and solar solutions provider in Ghana, committed to sustainable energy and community development.</p>
+      
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      
+      <p class="copyright">&copy; 2025 voltix Electrical & Solar Solutions | Powered by Sustainability</p>
+    </div>
+  </footer>
 
-  overlay.onclick = () => {
-    sidebar.classList.remove("show");
-    overlay.classList.remove("show");
-  };
+  <script>
+    // Mobile menu functionality
+    const toggle = document.getElementById("menu-toggle");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
 
-  document.querySelectorAll("#sidebar a").forEach(link => {
-    link.onclick = () => {
+    toggle.onclick = () => {
+      sidebar.classList.add("show");
+      overlay.classList.add("show");
+    };
+
+    overlay.onclick = () => {
       sidebar.classList.remove("show");
       overlay.classList.remove("show");
     };
-  });
 
-   window.onscroll = () => {
-    const btn = document.getElementById("backToTop");
-    btn.style.opacity = (document.documentElement.scrollTop > 200) ? "1" : "0";
-  };
+    document.querySelectorAll("#sidebar a").forEach(link => {
+      link.onclick = () => {
+        sidebar.classList.remove("show");
+        overlay.classList.remove("show");
+      };
+    });
 
-  // Scroll to top when clicked
-  document.getElementById("backToTop").onclick = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-</script>
+    // Back to top button
+    const backToTopBtn = document.getElementById("backToTop");
+    
+    window.onscroll = () => {
+      // Show/hide back to top button
+      if (document.documentElement.scrollTop > 300) {
+        backToTopBtn.classList.add("show");
+      } else {
+        backToTopBtn.classList.remove("show");
+      }
+      
+      // Header background on scroll
+      if (document.documentElement.scrollTop > 100) {
+        document.querySelector("header").classList.add("scrolled");
+      } else {
+        document.querySelector("header").classList.remove("scrolled");
+      }
+      
+      // Animate elements on scroll
+      animateOnScroll();
+    };
+
+    // Scroll to top when clicked
+    backToTopBtn.onclick = () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    // Animation on scroll function
+    function animateOnScroll() {
+      const elements = document.querySelectorAll('.mission-vision > div, .values h2, .value-card, .founder-image, .founder-info, .cta-section h2, .cta-section p');
+      
+      elements.forEach((element, index) => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.2;
+        
+        if (elementPosition < screenPosition) {
+          // Add delay based on element index for staggered animation
+          element.style.transitionDelay = `${index * 0.1}s`;
+          element.classList.add('animate');
+        }
+      });
+    }
+
+    // Initialize animations on page load
+    window.onload = () => {
+      animateOnScroll();
+    };
+  </script>
 </body>
 </html>

@@ -4,26 +4,573 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Our Services - Davamen Electrical & Solar Solutions</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0d47a1;
+      --primary-light: #5472d3;
+      --primary-dark: #002171;
+      --secondary: #ff9800;
+      --secondary-light: #ffc947;
+      --secondary-dark: #c66900;
+      --dark: #263238;
+      --light: #f5f7fa;
+      --gray: #78909c;
+      --white: #ffffff;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: var(--light);
+      overflow-x: hidden;
+    }
+
+    /* Header Styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: var(--shadow);
+      z-index: 1000;
+      transition: var(--transition);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header.scrolled {
+      padding: 0.7rem 2rem;
+      background-color: var(--white);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+    }
+
+    .logo span {
+      color: var(--secondary);
+    }
+
+    .desktop-menu ul {
+      display: flex;
+      list-style: none;
+    }
+
+    .desktop-menu li {
+      margin-left: 2rem;
+    }
+
+    .desktop-menu a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      position: relative;
+      transition: var(--transition);
+      padding: 0.5rem 0;
+    }
+
+    .desktop-menu a:hover {
+      color: var(--primary);
+    }
+
+    .desktop-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .desktop-menu a:hover::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--dark);
+    }
+
+    /* SIDEBAR MENU (mobile) */
+/* 🌟 MODERN, SOFT SIDEBAR */
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: -270px;
+  width: 250px;
+  height: 100%;
+  background-color: #f1f3f5; /* soft light gray */
+  backdrop-filter: blur(4px);
+  color: #2c3e50; /* dark slate for better readability */
+  transition: left 0.3s ease;
+  z-index: 1000;
+  padding-top: 70px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.06);
+  border-right: 1px solid #dcdfe2;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  font-size: 15px; /* slightly smaller text */
+  line-height: 1.6;
+}
+
+#sidebar.show {
+  left: 0;
+}
+
+#sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#sidebar li {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+#sidebar a {
+  color: #2c3e50;
+  text-decoration: none;
+  display: block;
+  padding: 14px 20px;
+  font-weight: 500;
+  font-size: 15px;
+  border: 1px solid transparent;
+  border-left: 4px solid transparent;
+  margin: 8px 15px;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  transition: all 0.25s ease;
+}
+
+#sidebar a:hover {
+  background-color: #e6ecf0;
+  border-left: 4px solid #063970;
+  color: #1c2d3a;
+}
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Page Content */
+    .page-content {
+      padding-top: 100px;
+    }
+
+    /* Intro Section */
+    .intro {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      color: var(--white);
+      margin-bottom: 3rem;
+    }
+
+    .intro h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .intro p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease 0.3s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Service Gallery */
+    .service-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2.5rem;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 2rem 5rem;
+    }
+
+    .service-card {
+      background-color: var(--white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .service-card.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .service-image {
+      height: 220px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .service-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .service-card:hover .service-image img {
+      transform: scale(1.05);
+    }
+
+    .service-icon {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 50px;
+      height: 50px;
+      background-color: var(--primary);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .service-content {
+      padding: 2rem;
+    }
+
+    .service-content h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .service-content h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background-color: var(--secondary);
+    }
+
+    .service-content p {
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .service-features {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-features li {
+      padding: 0.5rem 0;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+    }
+
+    .service-features li i {
+      color: var(--secondary);
+      margin-right: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .service-link:hover {
+      color: var(--primary-dark);
+      transform: translateX(5px);
+    }
+
+    .service-link i {
+      margin-left: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .service-link:hover i {
+      transform: translateX(3px);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      color: var(--white);
+      padding: 5rem 2rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .cta-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .cta-section h2.animate {
+      opacity: 1;
+      transform: translateY(0);
+      transition: var(--transition);
+    }
+
+    .cta-section p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .cta-section p.animate {
+      opacity: 1;
+      transform: translateY(0);
+      transition: var(--transition);
+      transition-delay: 0.2s;
+    }
+
+    .cta {
+      display: inline-block;
+      background-color: var(--secondary);
+      color: var(--white);
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+    }
+
+    .cta:hover {
+      background-color: var(--secondary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: var(--white);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo span {
+      color: var(--secondary);
+    }
+
+    .footer-text {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .social-links a {
+      color: var(--white);
+      font-size: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      color: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 1.5rem;
+      width: 100%;
+    }
+
+    /* Back to Top Button */
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      opacity: 0;
+      visibility: hidden;
+      z-index: 999;
+    }
+
+    #backToTop.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #backToTop:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-3px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .desktop-menu {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .intro h1 {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .intro h1 {
+        font-size: 2rem;
+      }
+
+      .intro p {
+        font-size: 1rem;
+      }
+
+      .service-gallery {
+        grid-template-columns: 1fr;
+        padding: 0 1.5rem 4rem;
+      }
+
+      .cta-section h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .intro h1 {
+        font-size: 1.8rem;
+      }
+
+      .service-gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <button id="backToTop" title="Go to top">&#8679;</button>
+  <button id="backToTop" title="Go to top"><i class="fas fa-chevron-up"></i></button>
 
-<header>
-  <!-- Hamburger icon for mobile -->
-  <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+  <header>
+    <div class="menu-toggle" id="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
 
-  <!-- Logo -->
-  <div class="logo">DAVAMEN</div>
+    <div class="logo">VOL<span>TIX</span></div>
 
+    
   <!-- Desktop horizontal menu -->
   <nav class="desktop-menu">
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="services.html">Services</a></li>
-      <li><a href="projects.html">Projects</a></li>
+      <li><a href="projects.html">Board & Sponsors</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
@@ -35,13 +582,14 @@
    <li><a href="index.html">🏠 Home</a></li>
 <li><a href="about.html">👤 About</a></li>
 <li><a href="services.html">🔧 Services</a></li>
-<li><a href="projects.html">📂 Projects</a></li>
+<li><a href="projects.html">👤 Board & Sponsors</a></li>
 <li><a href="contact.html">📞 Contact</a></li>
 
   </ul>
 </nav>
 
-<div class="overlay" id="overlay"></div>
+
+  <div class="overlay" id="overlay"></div>
 
   <main class="page-content">
     <section class="intro">
@@ -51,75 +599,240 @@
 
     <section class="service-gallery">
       <div class="service-card">
-        <img src="IMAGES/image6.jpg" alt="Electrical Installations">
-        <h2>Electrical Installations</h2>
-        <p>We handle residential and industrial wiring, lighting, switches, and all electrical setups.</p>
+        <div class="service-image">
+          <img src="IMAGES/image6.jpg" alt="Electrical Installations">
+          <div class="service-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+        </div>
+        <div class="service-content">
+          <h2>Electrical Installations</h2>
+          <p>We handle residential and industrial wiring, lighting, switches, and all electrical setups with precision and safety standards.</p>
+          <ul class="service-features">
+            <li><i class="fas fa-check"></i> Residential & Commercial Wiring</li>
+            <li><i class="fas fa-check"></i> Lighting Systems Installation</li>
+            <li><i class="fas fa-check"></i> Electrical Panel Upgrades</li>
+            <li><i class="fas fa-check"></i> Safety Inspections</li>
+          </ul>
+          <a href="contact.html" class="service-link">Get a Quote <i class="fas fa-arrow-right"></i></a>
+        </div>
       </div>
+      
       <div class="service-card">
-        <img src="IMAGES/image9.jpg" alt="Solar Energy Solutions">
-        <h2>Solar Energy Solutions</h2>
-        <p>Installation and maintenance of solar systems tailored for homes and businesses.</p>
+        <div class="service-image">
+          <img src="IMAGES/image9.jpg" alt="Solar Energy Solutions">
+          <div class="service-icon">
+            <i class="fas fa-solar-panel"></i>
+          </div>
+        </div>
+        <div class="service-content">
+          <h2>Solar Energy Solutions</h2>
+          <p>Installation and maintenance of solar systems tailored for homes and businesses to reduce energy costs.</p>
+          <ul class="service-features">
+            <li><i class="fas fa-check"></i> Residential Solar Systems</li>
+            <li><i class="fas fa-check"></i> Commercial Solar Solutions</li>
+            <li><i class="fas fa-check"></i> Solar Water Heating</li>
+            <li><i class="fas fa-check"></i> System Maintenance</li>
+          </ul>
+          <a href="contact.html" class="service-link">Get a Quote <i class="fas fa-arrow-right"></i></a>
+        </div>
       </div>
+      
       <div class="service-card">
-        <img src="IMAGES/image13.jpg" alt="CCTV & Surveillance">
-        <h2>CCTV & Surveillance</h2>
-        <p>Secure your property with smart CCTV and remote surveillance systems.</p>
+        <div class="service-image">
+          <img src="IMAGES/image13.jpg" alt="CCTV & Surveillance">
+          <div class="service-icon">
+            <i class="fas fa-video"></i>
+          </div>
+        </div>
+        <div class="service-content">
+          <h2>CCTV & Surveillance</h2>
+          <p>Secure your property with smart CCTV and remote surveillance systems for complete peace of mind.</p>
+          <ul class="service-features">
+            <li><i class="fas fa-check"></i> HD Camera Installation</li>
+            <li><i class="fas fa-check"></i> Remote Monitoring Setup</li>
+            <li><i class="fas fa-check"></i> Security System Integration</li>
+            <li><i class="fas fa-check"></i> Maintenance & Support</li>
+          </ul>
+          <a href="contact.html" class="service-link">Get a Quote <i class="fas fa-arrow-right"></i></a>
+        </div>
       </div>
+      
       <div class="service-card">
-        <img src="IMAGES/ac.jpg" alt="AC Services">
-        <h2>Air Conditioning Services</h2>
-        <p>Professional AC installation and servicing for all building types.</p>
+        <div class="service-image">
+          <img src="IMAGES/ac.jpg" alt="AC Services">
+          <div class="service-icon">
+            <i class="fas fa-wind"></i>
+          </div>
+        </div>
+        <div class="service-content">
+          <h2>Air Conditioning Services</h2>
+          <p>Professional AC installation and servicing for all building types to ensure optimal cooling performance.</p>
+          <ul class="service-features">
+            <li><i class="fas fa-check"></i> AC Installation</li>
+            <li><i class="fas fa-check"></i> Regular Maintenance</li>
+            <li><i class="fas fa-check"></i> Repair Services</li>
+            <li><i class="fas fa-check"></i> System Upgrades</li>
+          </ul>
+          <a href="contact.html" class="service-link">Get a Quote <i class="fas fa-arrow-right"></i></a>
+        </div>
       </div>
+      
       <div class="service-card">
-        <img src="IMAGES/Electric-Fence-installation.jpg" alt="Electric Fence">
-        <h2>Electric Fence Installation</h2>
-        <p>Reliable electric fencing for enhanced security and peace of mind.</p>
+        <div class="service-image">
+          <img src="IMAGES/Electric-Fence-installation.jpg" alt="Electric Fence">
+          <div class="service-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+        </div>
+        <div class="service-content">
+          <h2>Electric Fence Installation</h2>
+          <p>Reliable electric fencing for enhanced security and peace of mind for residential and commercial properties.</p>
+          <ul class="service-features">
+            <li><i class="fas fa-check"></i> Perimeter Security</li>
+            <li><i class="fas fa-check"></i> Alarm Integration</li>
+            <li><i class="fas fa-check"></i> Professional Installation</li>
+            <li><i class="fas fa-check"></i> Maintenance Services</li>
+          </ul>
+          <a href="contact.html" class="service-link">Get a Quote <i class="fas fa-arrow-right"></i></a>
+        </div>
       </div>
+      
       <div class="service-card">
-        <img src="IMAGES/tv-aerial-installation-fitters-west-midlands2-1024x611.jpg" alt="Satellite Installations">
-        <h2>Satellite & TV Installations</h2>
-        <p>Setup of satellite dishes and digital TV connections for perfect signal clarity.</p>
+        <div class="service-image">
+          <img src="IMAGES/tv-aerial-installation-fitters-west-midlands2-1024x611.jpg" alt="Satellite Installations">
+          <div class="service-icon">
+            <i class="fas fa-satellite-dish"></i>
+          </div>
+        </div>
+        <div class="service-content">
+          <h2>Satellite & TV Installations</h2>
+          <p>Setup of satellite dishes and digital TV connections for perfect signal clarity and entertainment experience.</p>
+          <ul class="service-features">
+            <li><i class="fas fa-check"></i> Satellite Dish Installation</li>
+            <li><i class="fas fa-check"></i> Digital TV Setup</li>
+            <li><i class="fas fa-check"></i> Signal Optimization</li>
+            <li><i class="fas fa-check"></i> Multi-Room Solutions</li>
+          </ul>
+          <a href="contact.html" class="service-link">Get a Quote <i class="fas fa-arrow-right"></i></a>
+        </div>
       </div>
+      
       <div class="service-card">
-        <img src="IMAGES/image15.jpg" alt="Satellite Installations">
-        <h2>Training and setification</h2>
-        <p>we offer training to people and equip them the basic knowledge in several areas.</p>
+        <div class="service-image">
+          <img src="IMAGES/image15.jpg" alt="Training and Certification">
+          <div class="service-icon">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+        </div>
+        <div class="service-content">
+          <h2>Training & Certification</h2>
+          <p>We offer comprehensive training programs to equip individuals with practical knowledge in electrical and solar technologies.</p>
+          <ul class="service-features">
+            <li><i class="fas fa-check"></i> Solar Technician Training</li>
+            <li><i class="fas fa-check"></i> Electrical Installation Courses</li>
+            <li><i class="fas fa-check"></i> Safety Certification</li>
+            <li><i class="fas fa-check"></i> Hands-on Practical Sessions</li>
+          </ul>
+          <a href="contact.html" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
       </div>
     </section>
+
+    <section class="cta-section">
+      <h2>Need Professional Services?</h2>
+      <p>Contact us today for a free consultation and let our experts provide the perfect solution for your needs.</p>
+      <a href="contact.html" class="cta">Get in Touch</a>
+    </section>
   </main>
-<!-- JavaScript -->
-<script>
-  const toggle = document.getElementById("menu-toggle");
-  const sidebar = document.getElementById("sidebar");
-  const overlay = document.getElementById("overlay");
 
-  toggle.onclick = () => {
-    sidebar.classList.add("show");
-    overlay.classList.add("show");
-  };
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">VOL<span>TIX</span></div>
+      <p class="footer-text">Leading electrical and solar solutions provider in Ghana, committed to sustainable energy and community development.</p>
+      
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      
+      <p class="copyright">&copy; 2025 voltix Electrical & Solar Solutions | Powered by Sustainability</p>
+    </div>
+  </footer>
 
-  overlay.onclick = () => {
-    sidebar.classList.remove("show");
-    overlay.classList.remove("show");
-  };
+  <script>
+    // Mobile menu functionality
+    const toggle = document.getElementById("menu-toggle");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
 
-  document.querySelectorAll("#sidebar a").forEach(link => {
-    link.onclick = () => {
+    toggle.onclick = () => {
+      sidebar.classList.add("show");
+      overlay.classList.add("show");
+    };
+
+    overlay.onclick = () => {
       sidebar.classList.remove("show");
       overlay.classList.remove("show");
     };
-  });
 
-   window.onscroll = () => {
-    const btn = document.getElementById("backToTop");
-    btn.style.opacity = (document.documentElement.scrollTop > 200) ? "1" : "0";
-  };
+    document.querySelectorAll("#sidebar a").forEach(link => {
+      link.onclick = () => {
+        sidebar.classList.remove("show");
+        overlay.classList.remove("show");
+      };
+    });
 
-  // Scroll to top when clicked
-  document.getElementById("backToTop").onclick = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-</script>
+    // Back to top button
+    const backToTopBtn = document.getElementById("backToTop");
+    
+    window.onscroll = () => {
+      // Show/hide back to top button
+      if (document.documentElement.scrollTop > 300) {
+        backToTopBtn.classList.add("show");
+      } else {
+        backToTopBtn.classList.remove("show");
+      }
+      
+      // Header background on scroll
+      if (document.documentElement.scrollTop > 100) {
+        document.querySelector("header").classList.add("scrolled");
+      } else {
+        document.querySelector("header").classList.remove("scrolled");
+      }
+      
+      // Animate elements on scroll
+      animateOnScroll();
+    };
+
+    // Scroll to top when clicked
+    backToTopBtn.onclick = () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    // Animation on scroll function
+    function animateOnScroll() {
+      const elements = document.querySelectorAll('.service-card, .cta-section h2, .cta-section p');
+      
+      elements.forEach((element, index) => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.2;
+        
+        if (elementPosition < screenPosition) {
+          // Add delay based on element index for staggered animation
+          element.style.transitionDelay = `${index * 0.1}s`;
+          element.classList.add('animate');
+        }
+      });
+    }
+
+    // Initialize animations on page load
+    window.onload = () => {
+      animateOnScroll();
+    };
+  </script>
  
 </body>
 </html>
