@@ -252,6 +252,21 @@
       opacity: 0.9;
     }
 
+    /* Course Format Badge */
+    .format-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+      color: var(--white);
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+      box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+      position: relative;
+      z-index: 1;
+    }
+
     /* Search Section */
     .search-section {
       padding: 3rem 2rem;
@@ -272,6 +287,7 @@
       border-radius: 50px;
       overflow: hidden;
       transition: var(--transition);
+      position: relative;
     }
 
     .search-box:focus-within {
@@ -286,6 +302,7 @@
       font-size: 1.1rem;
       outline: none;
       background-color: var(--light);
+      width: 100%;
     }
 
     .search-button {
@@ -296,6 +313,9 @@
       cursor: pointer;
       font-size: 1.1rem;
       transition: var(--transition);
+      position: relative;
+      z-index: 2;
+      white-space: nowrap;
     }
 
     .search-button:hover {
@@ -351,6 +371,7 @@
       z-index: 1;
     }
 
+    /* Expandable Course Cards */
     .category-card {
       background-color: var(--white);
       border-radius: 16px;
@@ -359,6 +380,10 @@
       transition: var(--transition);
       opacity: 0;
       transform: translateY(30px);
+      cursor: pointer;
+      max-height: 300px;
+      transition: max-height 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
     }
 
     .category-card.animate {
@@ -366,8 +391,9 @@
       transform: translateY(0);
     }
 
-    .category-card:hover {
-      transform: translateY(-15px);
+    .category-card.expanded {
+      max-height: 800px;
+      transform: translateY(-10px);
       box-shadow: var(--shadow-hover);
     }
 
@@ -377,6 +403,11 @@
       background-size: cover;
       background-position: center;
       position: relative;
+      transition: height 0.3s ease;
+    }
+
+    .category-card.expanded .category-image {
+      height: 150px;
     }
 
     .category-overlay {
@@ -390,7 +421,7 @@
       align-items: center;
       justify-content: center;
       color: var(--white);
-      opacity: 0;
+      opacity: 1;
       transition: var(--transition);
     }
 
@@ -411,14 +442,35 @@
       text-align: center;
       position: relative;
       overflow: hidden;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .category-header h2 {
       font-size: 1.6rem;
       font-weight: 600;
+      margin: 0;
+    }
+
+    .expand-icon {
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+    }
+
+    .category-card.expanded .expand-icon {
+      transform: rotate(180deg);
     }
 
     .category-content {
+      padding: 0 2rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.3s ease;
+    }
+
+    .category-card.expanded .category-content {
+      max-height: 600px;
       padding: 2rem;
     }
 
@@ -480,6 +532,25 @@
     .category-link:hover {
       transform: translateY(-3px);
       box-shadow: 0 6px 20px rgba(255, 152, 0, 0.3);
+    }
+
+    /* Format Badge on Cards */
+    .format-badge-card {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+      color: var(--white);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      z-index: 2;
+      box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+    }
+
+    .format-badge-card.offline {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     }
 
     /* Course Details Modal */
@@ -952,6 +1023,24 @@
       .course-info {
         grid-template-columns: 1fr;
       }
+
+      /* Mobile Search Improvements */
+      .search-box {
+        flex-direction: column;
+        border-radius: 16px;
+      }
+
+      .search-input {
+        padding: 1.2rem;
+        border-radius: 16px 16px 0 0;
+      }
+
+      .search-button {
+        padding: 1rem;
+        border-radius: 0 0 16px 16px;
+        width: 100%;
+        z-index: 10;
+      }
     }
 
     @media (max-width: 576px) {
@@ -1005,10 +1094,9 @@
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="programs.html">Programs</a></li>
-      <li><a href="courses.html" class="active">Courses</a></li>
+      <li><a href="courses.html" class="active">programs</a></li>
       <li><a href="services.html">Services</a></li>
-      <li><a href="board.html">Board & Sponsors</a></li>
+      <li><a href="projects.html">Board & Sponsors</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
@@ -1019,10 +1107,9 @@
   <ul>
     <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
     <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
-    <li><a href="programs.html"><i class="fas fa-graduation-cap"></i> Programs</a></li>
-    <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+    <li><a href="courses.html"><i class="fas fa-graduation-cap"></i> Programs</a></li>
     <li><a href="services.html"><i class="fas fa-tools"></i> Services</a></li>
-    <li><a href="board.html"><i class="fas fa-users"></i> Board & Sponsors</a></li>
+    <li><a href="projects.html"><i class="fas fa-users"></i> Board & Sponsors</a></li>
     <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
   </ul>
 </nav>
@@ -1032,6 +1119,9 @@
 <section class="page-header">
   <h1>Course Catalog</h1>
   <p>Explore our comprehensive range of technical and vocational courses designed to equip you with in-demand skills for today's job market</p>
+  <div class="format-badge">
+    <i class="fas fa-laptop"></i> Online & <i class="fas fa-building"></i> In-Person Courses Available
+  </div>
 </section>
 
 <section class="search-section">
@@ -1039,7 +1129,7 @@
     <div class="search-box">
       <input type="text" class="search-input" id="searchInput" placeholder="Search for courses, skills, or topics...">
       <button class="search-button" id="searchButton">
-        <i class="fas fa-search"></i>
+        <i class="fas fa-search"></i> Search Courses
       </button>
     </div>
   </div>
@@ -1048,7 +1138,7 @@
 <section class="categories-section">
   <div class="section-header">
     <h2 class="section-title">Course Categories</h2>
-    <p class="section-subtitle">Browse our extensive course catalog organized by field and specialization</p>
+    <p class="section-subtitle">Browse our extensive course catalog organized by field and specialization. Choose from online or in-person learning options.</p>
   </div>
   
   <div class="categories-grid" id="categoriesGrid">
@@ -1062,7 +1152,7 @@
     <span class="close-modal" id="closeModal">&times;</span>
     <div class="modal-header" id="modalHeader">
       <h2 id="modalCourseTitle">Course Title</h2>
-      <p id="modalCourseCategory">Category</p>
+      <p id="modalCourseCategory">Course Category</p>
     </div>
     <div class="modal-body">
       <div class="course-info">
@@ -1077,14 +1167,14 @@
           <p id="modalCourseLevel">Beginner</p>
         </div>
         <div class="info-item">
-          <i class="fas fa-chalkboard-teacher"></i>
+          <i class="fas fa-laptop"></i>
           <h3>Format</h3>
-          <p id="modalCourseFormat">Hybrid</p>
+          <p id="modalCourseFormat">Online/In-Person</p>
         </div>
         <div class="info-item">
           <i class="fas fa-certificate"></i>
           <h3>Certificate</h3>
-          <p id="modalCourseCertificate">Yes</p>
+          <p id="modalCourseCertificate">Professional Certificate</p>
         </div>
       </div>
       
@@ -1133,13 +1223,14 @@
 </footer>
 
 <script>
-  // Course data with cover images
+  // Course data with all categories
   const courseCategories = [
     {
       id: "management",
       title: "Management",
       icon: "fas fa-users-cog",
       image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "online",
       description: "Develop leadership and organizational skills for effective business management.",
       courses: [
         "Project Management",
@@ -1154,6 +1245,7 @@
       title: "Health Safety and Environment",
       icon: "fas fa-shield-alt",
       image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "offline",
       description: "Learn to create safe and healthy work environments while protecting our planet.",
       courses: [
         "Occupational Health & Safety",
@@ -1168,6 +1260,7 @@
       title: "Business and Management",
       icon: "fas fa-chart-line",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      format: "online",
       description: "Master the fundamentals of business operations and strategic management.",
       courses: [
         "Business Administration",
@@ -1182,6 +1275,7 @@
       title: "Information Technology",
       icon: "fas fa-laptop-code",
       image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80",
+      format: "online",
       description: "Build technical skills in software development, networking, and IT infrastructure.",
       courses: [
         "Software Development",
@@ -1196,6 +1290,7 @@
       title: "Human Resources",
       icon: "fas fa-user-tie",
       image: "https://images.unsplash.com/photo-1551836026-d5c88ac5c73d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "online",
       description: "Develop expertise in talent acquisition, employee development, and HR strategy.",
       courses: [
         "Talent Acquisition",
@@ -1210,6 +1305,7 @@
       title: "Sales and Marketing",
       icon: "fas fa-bullhorn",
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2015&q=80",
+      format: "online",
       description: "Learn effective strategies for customer acquisition, retention, and brand building.",
       courses: [
         "Digital Marketing",
@@ -1224,6 +1320,7 @@
       title: "Personal Development",
       icon: "fas fa-user-graduate",
       image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "online",
       description: "Enhance your personal skills, productivity, and professional growth.",
       courses: [
         "Communication Skills",
@@ -1238,6 +1335,7 @@
       title: "Finance and Accounting",
       icon: "fas fa-chart-pie",
       image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80",
+      format: "online",
       description: "Master financial principles, accounting practices, and investment strategies.",
       courses: [
         "Financial Accounting",
@@ -1252,6 +1350,7 @@
       title: "Education and Training",
       icon: "fas fa-chalkboard-teacher",
       image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
+      format: "hybrid",
       description: "Develop skills for effective teaching, training, and educational leadership.",
       courses: [
         "Instructional Design",
@@ -1266,6 +1365,7 @@
       title: "Legal and Compliance",
       icon: "fas fa-balance-scale",
       image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "online",
       description: "Understand legal frameworks and compliance requirements for business operations.",
       courses: [
         "Business Law",
@@ -1280,6 +1380,7 @@
       title: "Language and Communication",
       icon: "fas fa-comments",
       image: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
+      format: "online",
       description: "Improve your communication skills in multiple languages and contexts.",
       courses: [
         "Business Communication",
@@ -1294,6 +1395,7 @@
       title: "Hospitality Management",
       icon: "fas fa-concierge-bell",
       image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "offline",
       description: "Learn the art of hospitality, customer service, and tourism management.",
       courses: [
         "Hotel Operations",
@@ -1308,6 +1410,7 @@
       title: "Professional Courses",
       icon: "fas fa-briefcase",
       image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "hybrid",
       description: "Specialized courses for career advancement and professional certification.",
       courses: [
         "Professional Certification Programs",
@@ -1322,6 +1425,7 @@
       title: "Technology",
       icon: "fas fa-microchip",
       image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80",
+      format: "online",
       description: "Stay ahead with cutting-edge technology skills and digital transformation.",
       courses: [
         "Emerging Technologies",
@@ -1336,6 +1440,7 @@
       title: "Law",
       icon: "fas fa-gavel",
       image: "https://images.unsplash.com/photo-1589391886645-d51941baf7fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "online",
       description: "Explore legal principles, practices, and specialized areas of law.",
       courses: [
         "Legal Studies",
@@ -1350,6 +1455,7 @@
       title: "NULGE",
       icon: "fas fa-landmark",
       image: "https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "offline",
       description: "Courses designed for local government employees and public administration.",
       courses: [
         "Local Government Administration",
@@ -1364,6 +1470,7 @@
       title: "SPORT",
       icon: "fas fa-running",
       image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "offline",
       description: "Develop skills in sports management, coaching, and athletic training.",
       courses: [
         "Sports Management",
@@ -1378,6 +1485,7 @@
       title: "THEOLOGY",
       icon: "fas fa-pray",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      format: "hybrid",
       description: "Explore religious studies, theological principles, and ministerial training.",
       courses: [
         "Biblical Studies",
@@ -1392,6 +1500,7 @@
       title: "DISASTER",
       icon: "fas fa-first-aid",
       image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "offline",
       description: "Learn disaster management, emergency response, and risk reduction strategies.",
       courses: [
         "Disaster Risk Management",
@@ -1406,6 +1515,7 @@
       title: "ALGON",
       icon: "fas fa-university",
       image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1973&q=80",
+      format: "offline",
       description: "Courses for local government officials and administrators.",
       courses: [
         "Local Governance",
@@ -1420,6 +1530,7 @@
       title: "Customer Service",
       icon: "fas fa-headset",
       image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "online",
       description: "Master the art of customer satisfaction and service excellence.",
       courses: [
         "Customer Experience Management",
@@ -1434,6 +1545,7 @@
       title: "Technical and Vocational Training",
       icon: "fas fa-tools",
       image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "offline",
       description: "Hands-on technical skills for various trades and vocational professions.",
       courses: [
         "Electrical Installation",
@@ -1448,6 +1560,7 @@
       title: "Health and Wellness",
       icon: "fas fa-heartbeat",
       image: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80",
+      format: "hybrid",
       description: "Promote health, wellness, and holistic approaches to wellbeing.",
       courses: [
         "Health Promotion",
@@ -1462,6 +1575,7 @@
       title: "Creative Arts and Media",
       icon: "fas fa-palette",
       image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "hybrid",
       description: "Develop creative skills in arts, design, and media production.",
       courses: [
         "Graphic Design",
@@ -1476,6 +1590,7 @@
       title: "Environment and Sustainability",
       icon: "fas fa-leaf",
       image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80",
+      format: "hybrid",
       description: "Learn sustainable practices and environmental conservation methods.",
       courses: [
         "Sustainable Development",
@@ -1490,6 +1605,7 @@
       title: "Engineering and Technology",
       icon: "fas fa-cogs",
       image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "offline",
       description: "Technical courses in various engineering disciplines and technology applications.",
       courses: [
         "Civil Engineering",
@@ -1504,6 +1620,7 @@
       title: "Public Services",
       icon: "fas fa-users",
       image: "https://images.unsplash.com/photo-1551135049-8a33b4273818?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "offline",
       description: "Training for careers in public service and community development.",
       courses: [
         "Public Administration",
@@ -1518,6 +1635,7 @@
       title: "Digital and Online Tools",
       icon: "fas fa-desktop",
       image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80",
+      format: "online",
       description: "Master digital tools and platforms for productivity and online presence.",
       courses: [
         "Digital Literacy",
@@ -1532,6 +1650,7 @@
       title: "Artificial Intelligence (AI)",
       icon: "fas fa-robot",
       image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "online",
       description: "Explore the fundamentals and applications of artificial intelligence.",
       courses: [
         "AI Fundamentals",
@@ -1546,6 +1665,7 @@
       title: "International Development",
       icon: "fas fa-globe-africa",
       image: "https://images.unsplash.com/photo-1527689361190-bcfc908e8624?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "hybrid",
       description: "Understand global development issues and international cooperation.",
       courses: [
         "Development Studies",
@@ -1560,6 +1680,7 @@
       title: "Social Sciences",
       icon: "fas fa-globe-americas",
       image: "https://images.unsplash.com/photo-1551836026-d5c88ac5c73d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "online",
       description: "Study human society, behavior, and social structures.",
       courses: [
         "Sociology",
@@ -1574,6 +1695,7 @@
       title: "Digital Skills",
       icon: "fas fa-laptop",
       image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80",
+      format: "online",
       description: "Essential digital skills for the modern workplace and everyday life.",
       courses: [
         "Digital Literacy",
@@ -1581,6 +1703,21 @@
         "Data Analysis",
         "Cybersecurity Awareness",
         "Digital Marketing"
+      ]
+    },
+    {
+      id: "affiliate",
+      title: "AFFILIATE",
+      icon: "fas fa-handshake",
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      format: "hybrid",
+      description: "Partnership and affiliate programs for collaborative learning.",
+      courses: [
+        "Affiliate Marketing",
+        "Partnership Management",
+        "Collaborative Programs",
+        "Network Development",
+        "Strategic Alliances"
       ]
     }
   ];
@@ -1590,8 +1727,8 @@
     "Project Management": {
       duration: "3 Months",
       level: "Intermediate",
-      format: "Hybrid",
-      certificate: "Yes",
+      format: "Online",
+      certificate: "Professional Certificate",
       description: "This comprehensive project management course covers the essential principles, methodologies, and tools needed to successfully plan, execute, and complete projects. You'll learn how to define project scope, create work breakdown structures, develop realistic schedules, manage budgets, and lead project teams effectively.",
       curriculum: [
         "Project initiation and planning",
@@ -1609,7 +1746,7 @@
       duration: "6 Months",
       level: "Beginner to Advanced",
       format: "Online",
-      certificate: "Yes",
+      certificate: "Professional Certificate",
       description: "Learn the fundamentals of software development including programming concepts, data structures, algorithms, and software engineering principles. This course provides hands-on experience with popular programming languages and development tools.",
       curriculum: [
         "Programming fundamentals with Python/JavaScript",
@@ -1626,8 +1763,8 @@
     "Digital Marketing": {
       duration: "2 Months",
       level: "Beginner",
-      format: "Hybrid",
-      certificate: "Yes",
+      format: "Online",
+      certificate: "Professional Certificate",
       description: "Master the essentials of digital marketing including SEO, social media marketing, content strategy, email marketing, and analytics. Learn how to create effective digital campaigns that drive results.",
       curriculum: [
         "Search Engine Optimization (SEO)",
@@ -1640,6 +1777,22 @@
       ],
       price: "GH₵ 900",
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2015&q=80"
+    },
+    "Electrical Installation": {
+      duration: "4 Months",
+      level: "Beginner",
+      format: "In-Person",
+      certificate: "Vocational Certificate",
+      description: "Hands-on training in electrical installation, wiring, and safety procedures for residential and commercial buildings.",
+      curriculum: [
+        "Electrical safety and regulations",
+        "Wiring techniques and methods",
+        "Circuit design and installation",
+        "Electrical testing and troubleshooting",
+        "Safety procedures and best practices"
+      ],
+      price: "GH₵ 1,800",
+      image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
     }
   };
 
@@ -1740,6 +1893,21 @@
       categoryCard.className = 'category-card';
       categoryCard.setAttribute('data-category', category.id);
       
+      // Determine format badge text and class
+      let formatText = '';
+      let formatClass = '';
+      
+      if (category.format === 'online') {
+        formatText = '<i class="fas fa-laptop"></i> Online';
+        formatClass = '';
+      } else if (category.format === 'offline') {
+        formatText = '<i class="fas fa-building"></i> In-Person';
+        formatClass = 'offline';
+      } else {
+        formatText = '<i class="fas fa-blender-phone"></i> Hybrid';
+        formatClass = '';
+      }
+      
       categoryCard.innerHTML = `
         <div class="category-image" style="background-image: url('${category.image}')">
           <div class="category-overlay">
@@ -1747,9 +1915,15 @@
               <i class="${category.icon}"></i>
             </div>
           </div>
+          <div class="format-badge-card ${formatClass}">
+            ${formatText}
+          </div>
         </div>
         <div class="category-header">
           <h2>${category.title}</h2>
+          <div class="expand-icon">
+            <i class="fas fa-chevron-down"></i>
+          </div>
         </div>
         <div class="category-content">
           <p>${category.description}</p>
@@ -1761,6 +1935,26 @@
       `;
       
       categoriesGrid.appendChild(categoryCard);
+    });
+    
+    // Add click event to expand/collapse cards
+    document.querySelectorAll('.category-card').forEach(card => {
+      card.addEventListener('click', function(e) {
+        // Don't trigger if clicking on a course item or link
+        if (e.target.closest('.category-courses') || e.target.closest('.category-link')) {
+          return;
+        }
+        
+        // Toggle expanded state
+        this.classList.toggle('expanded');
+        
+        // Close other expanded cards
+        document.querySelectorAll('.category-card.expanded').forEach(otherCard => {
+          if (otherCard !== this) {
+            otherCard.classList.remove('expanded');
+          }
+        });
+      });
     });
     
     // Add click event to category links
@@ -1807,8 +2001,8 @@
     const courseDetail = courseDetails[courseName] || {
       duration: "3 Months",
       level: "Beginner",
-      format: "Hybrid",
-      certificate: "Yes",
+      format: "Online/In-Person",
+      certificate: "Professional Certificate",
       description: "This course provides comprehensive training in the subject area. More details will be available soon.",
       curriculum: [
         "Fundamental concepts and principles",

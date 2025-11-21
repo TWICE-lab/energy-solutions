@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About Us - Davamen Electrical & Solar Solutions</title>
+  <title>About Us - VOLTIX TVET Institute & Technical Services</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -18,8 +18,9 @@
       --light: #f5f7fa;
       --gray: #78909c;
       --white: #ffffff;
-      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      --transition: all 0.3s ease;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     * {
@@ -34,30 +35,36 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      line-height: 1.6;
+      line-height: 1.7;
       color: var(--dark);
       background-color: var(--light);
       overflow-x: hidden;
     }
 
-    /* Header Styles */
+    /* Header Styles with Animation */
     header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      background-color: rgba(255, 255, 255, 0.95);
+      background-color: rgba(255, 255, 255, 0.98);
       box-shadow: var(--shadow);
       z-index: 1000;
       transition: var(--transition);
-      padding: 1rem 2rem;
+      padding: 1.2rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      backdrop-filter: blur(10px);
+      transform: translateY(0);
+    }
+
+    header.hidden {
+      transform: translateY(-100%);
     }
 
     header.scrolled {
-      padding: 0.7rem 2rem;
+      padding: 0.8rem 2rem;
       background-color: var(--white);
     }
 
@@ -67,10 +74,25 @@
       color: var(--primary);
       display: flex;
       align-items: center;
+      animation: logoPulse 4s infinite;
+    }
+
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
 
     .logo span {
       color: var(--secondary);
+    }
+
+    .logo-subtitle {
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: var(--gray);
+      margin-left: 0.5rem;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
     }
 
     .desktop-menu ul {
@@ -79,7 +101,7 @@
     }
 
     .desktop-menu li {
-      margin-left: 2rem;
+      margin-left: 2.2rem;
     }
 
     .desktop-menu a {
@@ -89,6 +111,7 @@
       position: relative;
       transition: var(--transition);
       padding: 0.5rem 0;
+      font-size: 0.95rem;
     }
 
     .desktop-menu a:hover {
@@ -102,7 +125,7 @@
       left: 0;
       width: 0;
       height: 2px;
-      background-color: var(--primary);
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
       transition: var(--transition);
     }
 
@@ -115,77 +138,112 @@
       font-size: 1.5rem;
       cursor: pointer;
       color: var(--dark);
+      transition: var(--transition);
+      animation: bounce 2s infinite;
     }
 
-    
-   /* SIDEBAR MENU (mobile) */
-/* 🌟 MODERN, SOFT SIDEBAR */
-#sidebar {
-  position: fixed;
-  top: 0;
-  left: -270px;
-  width: 250px;
-  height: 100%;
-  background-color: #f1f3f5; /* soft light gray */
-  backdrop-filter: blur(4px);
-  color: #2c3e50; /* dark slate for better readability */
-  transition: left 0.3s ease;
-  z-index: 1000;
-  padding-top: 70px;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.06);
-  border-right: 1px solid #dcdfe2;
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
-  font-size: 15px; /* slightly smaller text */
-  line-height: 1.6;
-}
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+      40% {transform: translateY(-5px);}
+      60% {transform: translateY(-3px);}
+    }
 
-#sidebar.show {
-  left: 0;
-}
+    .menu-toggle:hover {
+      color: var(--primary);
+    }
 
-#sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+    /* SIDEBAR MENU (mobile) with Animation */
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 280px;
+      height: 100%;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      color: #2c3e50;
+      transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 1000;
+      padding-top: 80px;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+      border-right: 1px solid rgba(0, 0, 0, 0.05);
+    }
 
-#sidebar li {
-  border-bottom: 1px solid #e0e0e0;
-}
+    #sidebar.show {
+      left: 0;
+    }
 
-#sidebar a {
-  color: #2c3e50;
-  text-decoration: none;
-  display: block;
-  padding: 14px 20px;
-  font-weight: 500;
-  font-size: 15px;
-  border: 1px solid transparent;
-  border-left: 4px solid transparent;
-  margin: 8px 15px;
-  border-radius: 6px;
-  background-color: #f9f9f9;
-  transition: all 0.25s ease;
-}
+    #sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
 
-#sidebar a:hover {
-  background-color: #e6ecf0;
-  border-left: 4px solid #063970;
-  color: #1c2d3a;
-}
+    #sidebar li {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      transform: translateX(-20px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
 
+    #sidebar.show li {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    #sidebar.show li:nth-child(1) { transition-delay: 0.1s; }
+    #sidebar.show li:nth-child(2) { transition-delay: 0.15s; }
+    #sidebar.show li:nth-child(3) { transition-delay: 0.2s; }
+    #sidebar.show li:nth-child(4) { transition-delay: 0.25s; }
+    #sidebar.show li:nth-child(5) { transition-delay: 0.3s; }
+    #sidebar.show li:nth-child(6) { transition-delay: 0.35s; }
+
+    #sidebar a {
+      color: #2c3e50;
+      text-decoration: none;
+      display: block;
+      padding: 16px 24px;
+      font-weight: 500;
+      font-size: 15px;
+      border-left: 4px solid transparent;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #sidebar a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.5s;
+    }
+
+    #sidebar a:hover::before {
+      left: 100%;
+    }
+
+    #sidebar a:hover {
+      background-color: rgba(13, 71, 161, 0.05);
+      border-left: 4px solid var(--primary);
+      color: var(--primary);
+      padding-left: 28px;
+    }
+
+    /* OVERLAY */
     .overlay {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 999;
+      width: 100%;
+      background: rgba(0,0,0,0.5);
       opacity: 0;
       visibility: hidden;
-      transition: var(--transition);
+      transition: opacity 0.3s ease;
+      z-index: 999;
     }
 
     .overlay.show {
@@ -201,18 +259,40 @@
     /* Intro Section */
     .intro {
       text-align: center;
-      padding: 4rem 2rem;
-      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      padding: 6rem 2rem;
+      background: linear-gradient(135deg, rgba(13, 71, 161, 0.9) 0%, rgba(13, 71, 161, 0.7) 100%), url('IMAGES/hero-bg.jpg') center/cover no-repeat;
       color: var(--white);
       margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23000000' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+      opacity: 0.3;
     }
 
     .intro h1 {
-      font-size: 3rem;
+      font-size: 3.2rem;
       margin-bottom: 1.5rem;
       opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 1s ease forwards;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease forwards, textGlow 3s infinite alternate;
+      line-height: 1.2;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes textGlow {
+      0% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+      100% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 152, 0, 0.6); }
     }
 
     .intro p {
@@ -220,8 +300,11 @@
       max-width: 900px;
       margin: 0 auto;
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(30px);
       animation: fadeInUp 1s ease 0.3s forwards;
+      position: relative;
+      z-index: 1;
+      line-height: 1.6;
     }
 
     @keyframes fadeInUp {
@@ -243,12 +326,26 @@
 
     .mission-vision > div {
       background-color: var(--white);
-      padding: 3rem;
-      border-radius: 10px;
+      padding: 3.5rem 2.5rem;
+      border-radius: 16px;
       box-shadow: var(--shadow);
       transition: var(--transition);
       opacity: 0;
       transform: translateY(30px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mission-vision > div::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(13, 71, 161, 0.03) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
     }
 
     .mission-vision > div.animate {
@@ -256,17 +353,22 @@
       transform: translateY(0);
     }
 
+    .mission-vision > div:hover::before {
+      opacity: 1;
+    }
+
     .mission-vision > div:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      transform: translateY(-15px);
+      box-shadow: var(--shadow-hover);
     }
 
     .mission-vision h2 {
-      font-size: 1.8rem;
+      font-size: 2.2rem;
       margin-bottom: 1.5rem;
       color: var(--primary);
       position: relative;
       padding-bottom: 0.5rem;
+      font-weight: 600;
     }
 
     .mission-vision h2::after {
@@ -276,12 +378,14 @@
       left: 0;
       width: 50px;
       height: 3px;
-      background-color: var(--secondary);
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
     }
 
     .mission-vision p {
       color: var(--gray);
       line-height: 1.7;
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
     }
 
     /* Values Section */
@@ -293,11 +397,12 @@
     }
 
     .values h2 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       margin-bottom: 3rem;
       color: var(--primary);
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(30px);
+      font-weight: 700;
     }
 
     .values h2.animate {
@@ -308,18 +413,32 @@
 
     .values-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
     }
 
     .value-card {
       background-color: var(--white);
-      padding: 2.5rem 2rem;
-      border-radius: 10px;
+      padding: 3rem 2.5rem;
+      border-radius: 16px;
       box-shadow: var(--shadow);
       transition: var(--transition);
       opacity: 0;
       transform: translateY(30px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .value-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(13, 71, 161, 0.03) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
     }
 
     .value-card.animate {
@@ -327,38 +446,54 @@
       transform: translateY(0);
     }
 
+    .value-card:hover::before {
+      opacity: 1;
+    }
+
     .value-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      transform: translateY(-15px);
+      box-shadow: var(--shadow-hover);
     }
 
     .value-icon {
-      width: 70px;
-      height: 70px;
-      background-color: var(--primary-light);
+      width: 90px;
+      height: 90px;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary));
       color: var(--white);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 1.5rem;
-      font-size: 1.8rem;
+      font-size: 2.5rem;
       transition: var(--transition);
+      box-shadow: 0 8px 20px rgba(13, 71, 161, 0.2);
+      animation: iconPulse 2s infinite;
+    }
+
+    @keyframes iconPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
     }
 
     .value-card:hover .value-icon {
-      background-color: var(--secondary);
+      background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
       transform: scale(1.1);
+      animation: none;
     }
 
     .value-card h3 {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       margin-bottom: 1rem;
       color: var(--primary);
+      font-weight: 600;
     }
 
     .value-card p {
       color: var(--gray);
+      line-height: 1.7;
+      font-size: 1.05rem;
     }
 
     /* Founder Section */
@@ -377,17 +512,17 @@
 
     .founder-image {
       position: relative;
-      border-radius: 10px;
+      border-radius: 16px;
       overflow: hidden;
       box-shadow: var(--shadow);
       opacity: 0;
       transform: translateX(-30px);
+      transition: var(--transition);
     }
 
     .founder-image.animate {
       opacity: 1;
       transform: translateX(0);
-      transition: var(--transition);
     }
 
     .founder-image img {
@@ -413,13 +548,14 @@
     }
 
     .founder-info h2 {
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       margin-bottom: 1.5rem;
       color: var(--primary);
+      font-weight: 700;
     }
 
     .founder-info h3 {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       color: var(--secondary);
       margin-bottom: 1.5rem;
       font-weight: 500;
@@ -429,21 +565,39 @@
       color: var(--gray);
       margin-bottom: 1.5rem;
       line-height: 1.7;
+      font-size: 1.05rem;
     }
 
     /* CTA Section */
     .cta-section {
-      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-dark) 100%);
       color: var(--white);
-      padding: 5rem 2rem;
+      padding: 6rem 2rem;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+      opacity: 0.3;
     }
 
     .cta-section h2 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       margin-bottom: 1.5rem;
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(30px);
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+      animation: textGlow 3s infinite alternate;
     }
 
     .cta-section h2.animate {
@@ -454,12 +608,15 @@
 
     .cta-section p {
       font-size: 1.2rem;
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
       max-width: 700px;
       margin-left: auto;
       margin-right: auto;
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(30px);
+      position: relative;
+      z-index: 1;
+      line-height: 1.6;
     }
 
     .cta-section p.animate {
@@ -471,29 +628,69 @@
 
     .cta {
       display: inline-block;
-      background-color: var(--secondary);
+      background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
       color: var(--white);
-      padding: 0.8rem 2rem;
+      padding: 1rem 2.5rem;
       border-radius: 50px;
       text-decoration: none;
       font-weight: 600;
       font-size: 1.1rem;
       transition: var(--transition);
-      box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+      box-shadow: 0 6px 20px rgba(255, 152, 0, 0.3);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease 0.6s forwards, buttonPulse 2s infinite;
+      margin: 0.5rem;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    @keyframes buttonPulse {
+      0% { box-shadow: 0 6px 20px rgba(255, 152, 0, 0.3); }
+      50% { box-shadow: 0 6px 30px rgba(255, 152, 0, 0.6); }
+      100% { box-shadow: 0 6px 20px rgba(255, 152, 0, 0.3); }
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .cta:hover::before {
+      left: 100%;
     }
 
     .cta:hover {
-      background-color: var(--secondary-dark);
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(255, 152, 0, 0.4);
+      animation: none;
     }
 
     /* Footer */
     footer {
-      background-color: var(--dark);
+      background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
       color: var(--white);
-      padding: 3rem 2rem;
+      padding: 4rem 2rem 2rem;
       text-align: center;
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+      opacity: 0.3;
     }
 
     .footer-content {
@@ -502,46 +699,72 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
+      z-index: 1;
     }
 
     .footer-logo {
-      font-size: 2rem;
+      font-size: 2.5rem;
       font-weight: 700;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      animation: logoPulse 4s infinite;
     }
 
     .footer-logo span {
-      color: var(--secondary);
+      color: var(--secondary-light);
     }
 
     .footer-text {
-      color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 2rem;
-      max-width: 600px;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 2.5rem;
+      max-width: 700px;
+      font-size: 1.1rem;
+      line-height: 1.6;
     }
 
     .social-links {
       display: flex;
       gap: 1.5rem;
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
     }
 
     .social-links a {
       color: var(--white);
       font-size: 1.5rem;
       transition: var(--transition);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      animation: socialFloat 3s infinite ease-in-out;
+    }
+
+    .social-links a:nth-child(1) { animation-delay: 0s; }
+    .social-links a:nth-child(2) { animation-delay: 0.2s; }
+    .social-links a:nth-child(3) { animation-delay: 0.4s; }
+    .social-links a:nth-child(4) { animation-delay: 0.6s; }
+
+    @keyframes socialFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
     .social-links a:hover {
-      color: var(--secondary);
-      transform: translateY(-3px);
+      color: var(--secondary-light);
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
+      animation: none;
     }
 
     .copyright {
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.6);
       font-size: 0.9rem;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-top: 1.5rem;
+      padding-top: 2rem;
       width: 100%;
     }
 
@@ -550,19 +773,23 @@
       position: fixed;
       bottom: 30px;
       right: 30px;
-      width: 50px;
-      height: 50px;
-      background-color: var(--primary);
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: var(--white);
       border: none;
       border-radius: 50%;
       cursor: pointer;
-      font-size: 1.2rem;
-      box-shadow: var(--shadow);
+      font-size: 1.3rem;
+      box-shadow: 0 6px 20px rgba(13, 71, 161, 0.3);
       transition: var(--transition);
       opacity: 0;
       visibility: hidden;
       z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: bounce 2s infinite;
     }
 
     #backToTop.show {
@@ -571,8 +798,10 @@
     }
 
     #backToTop:hover {
-      background-color: var(--primary-dark);
-      transform: translateY(-3px);
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(13, 71, 161, 0.4);
+      animation: none;
     }
 
     /* Responsive Design */
@@ -614,6 +843,14 @@
       .founder-content {
         grid-template-columns: 1fr;
       }
+
+      .mission-vision > div {
+        padding: 2.5rem 2rem;
+      }
+
+      .value-card {
+        padding: 2.5rem 2rem;
+      }
     }
 
     @media (max-width: 480px) {
@@ -647,36 +884,36 @@
     <div class="logo">VOL<span>TIX</span></div>
 
     <!-- Desktop horizontal menu -->
-  <nav class="desktop-menu">
+    <nav class="desktop-menu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="courses.html">Programs</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="projects.html">Board & Sponsors</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Sidebar nav for mobile -->
+  <nav id="sidebar">
     <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="projects.html">Board & Sponsors</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+      <li><a href="courses.html"><i class="fas fa-graduation-cap"></i> Programs</a></li>
+      <li><a href="services.html"><i class="fas fa-tools"></i> Services</a></li>
+      <li><a href="projects.html"><i class="fas fa-users"></i> Board & Sponsors</a></li>
+      <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
     </ul>
   </nav>
-</header>
-
-<!-- Sidebar nav for mobile -->
-<nav id="sidebar">
-  <ul>
-   <li><a href="index.html">🏠 Home</a></li>
-<li><a href="about.html">👤 About</a></li>
-<li><a href="services.html">🔧 Services</a></li>
-<li><a href="projects.html">👤 Board & Sponsors</a></li>
-<li><a href="contact.html">📞 Contact</a></li>
-
-  </ul>
-</nav>
-
 
   <div class="overlay" id="overlay"></div>
 
   <main class="page-content">
     <section class="intro">
-      <h1>About Us</h1>
-      <p>We're a team of passionate energy problem-solvers who believe reliable power should be simple, affordable, and sustainable. Founded by David Kwabena Amenuku - an electrical engineer with hands-on experience from industrial sites to family homes - we bridge technical expertise with genuine care for our customers.</p>
+      <h1>About VOLTIX</h1>
+      <p>We're Ghana's premier TVET institute and technical services provider, transforming vocational education while delivering professional electrical and solar solutions. Our dual focus bridges the gap between quality technical training and industry needs.</p>
     </section>
 
     <section class="founder">
@@ -687,9 +924,11 @@
         <div class="founder-info">
           <h2>David Kwabena Amenuku</h2>
           <h3>Founder & Lead Engineer</h3>
-          <p>With years of hands-on experience from industrial sites to family homes, David founded Davamen to bridge technical expertise with genuine care for customers. His vision is to make reliable energy accessible to all Ghanaians while creating opportunities through skills training.</p>
-          <p>What makes us different? We listen first, then design solutions that actually fit your life. We train local technicians because knowledge should empower communities. We stand by our work - from the solar panels we install to the skills we teach.</p>
-          <p>At our core, we're not just an electrical company - we're your partners in building a brighter, more energy-secure future for Ghana.</p>
+          <p>With years of hands-on experience from industrial sites to family homes, David founded VOLTIX to bridge technical expertise with genuine care for customers. His vision is to make reliable energy accessible to all Ghanaians while creating opportunities through skills training.</p>
+            <p>VOLTIX was founded to address Ghana's critical skills gap in technical and vocational education while providing professional electrical and solar services to communities and industries. Our unique dual-focus model creates a sustainable ecosystem where training and services complement each other.</p>
+          <p>Our TVET institute provides comprehensive technical education that combines traditional craftsmanship with cutting-edge technology, while our technical services division delivers professional electrical and solar solutions across Ghana.</p>
+          <p>What makes us different? We don't just teach theory - our students gain hands-on experience through real projects. We don't just provide services - we create employment opportunities for our graduates. We're building a brighter, more skilled future for Ghana.</p>
+          
         </div>
       </div>
     </section>
@@ -697,16 +936,17 @@
     <section class="mission-vision">
       <div>
         <h2>Our Mission</h2>
-        <p>We're on a simple mission: to bring light, opportunity, and peace of mind to every community we serve.</p>
-        <p>For families, that means: No more sleepless nights over blackouts or sky-high bills. No more worrying about unsafe wiring or security. Just reliable power—clean, affordable, and tailored to your life.</p>
-        <p>For Ghana's future, that means: Real skills for real people through hands-on training. Good jobs created by certifying the next generation of technicians. Stronger communities powered by sustainable energy.</p>
-        <p>We don't just install systems. We build relationships and hope, one solar panel, one repaired wire, one trained graduate at a time.</p>
+        <p>To transform vocational education in Ghana through hybrid technical training while providing professional electrical and solar services to communities and industries.</p>
+        <p>For students, that means: No more education without practical application. No more skills without employment pathways. Just quality training that leads to real careers.</p>
+        <p>For Ghana's future, that means: Real skills for real people through hands-on training. Good jobs created by certifying the next generation of technicians. Stronger communities powered by sustainable energy and skilled professionals.</p>
+        <p>We don't just run programs. We build careers, empower communities, and drive sustainable development - one student, one project, one community at a time.</p>
       </div>
       <div>
         <h2>Our Vision</h2>
-        <p>To become a trusted leader in solar and electrical services across Africa, improving energy access while promoting environmental sustainability.</p>
-        <p>We envision a future where every Ghanaian home and business has access to reliable, affordable power that doesn't compromise our environment. Where communities are empowered through skills development and local expertise.</p>
-        <p>Our vision extends beyond just providing services - we're building a movement toward energy independence and sustainable development across the continent.</p>
+         <p>To become Ghana's leading TVET institute and technical services provider, recognized for excellence in vocational education and professional electrical solutions.</p>
+        <p>We envision a future where every Ghanaian youth has access to quality technical education that leads to meaningful employment. Where communities and industries benefit from reliable, professional electrical and solar services.</p>
+        <p>Our vision extends beyond just providing education and services - we're building a movement toward skills development, employment generation, and sustainable energy solutions across Ghana.</p>
+        <p>We see a Ghana where technical skills are valued, where vocational education transforms lives, and where sustainable energy powers progress for all.</p>
       </div>
     </section>
 
@@ -768,7 +1008,7 @@
   <footer>
     <div class="footer-content">
       <div class="footer-logo">VOL<span>TIX</span></div>
-      <p class="footer-text">Leading electrical and solar solutions provider in Ghana, committed to sustainable energy and community development.</p>
+      <p class="footer-text">Ghana's Premier TVET Institute & Technical Services Provider, transforming education and providing professional electrical solutions through technology, innovation and excellence.</p>
       
       <div class="social-links">
         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -777,7 +1017,7 @@
         <a href="#"><i class="fab fa-linkedin-in"></i></a>
       </div>
       
-      <p class="copyright">&copy; 2025 voltix Electrical & Solar Solutions | Powered by Sustainability</p>
+      <p class="copyright">&copy; 2025 VOLTIX TVET Institute & Technical Services | Transforming Vocational Education in Ghana</p>
     </div>
   </footer>
 
@@ -790,22 +1030,29 @@
     toggle.onclick = () => {
       sidebar.classList.add("show");
       overlay.classList.add("show");
+      document.body.style.overflow = 'hidden';
     };
 
     overlay.onclick = () => {
       sidebar.classList.remove("show");
       overlay.classList.remove("show");
+      document.body.style.overflow = 'auto';
     };
 
     document.querySelectorAll("#sidebar a").forEach(link => {
       link.onclick = () => {
         sidebar.classList.remove("show");
         overlay.classList.remove("show");
+        document.body.style.overflow = 'auto';
       };
     });
 
     // Back to top button
     const backToTopBtn = document.getElementById("backToTop");
+    
+    // Header hide/show on scroll
+    let lastScrollTop = 0;
+    const header = document.querySelector('header');
     
     window.onscroll = () => {
       // Show/hide back to top button
@@ -821,6 +1068,15 @@
       } else {
         document.querySelector("header").classList.remove("scrolled");
       }
+      
+      // Header hide/show on scroll
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollTop > lastScrollTop && scrollTop > 100) {
+        header.classList.add("hidden");
+      } else {
+        header.classList.remove("hidden");
+      }
+      lastScrollTop = scrollTop;
       
       // Animate elements on scroll
       animateOnScroll();
