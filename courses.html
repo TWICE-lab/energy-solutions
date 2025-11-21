@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Catalog | VOLTIX - TVET Institute & Technical Services</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0d47a1;
+      --primary-light: #5472d3;
+      --primary-dark: #002171;
+      --secondary: #ff9800;
+      --secondary-light: #ffc947;
+      --secondary-dark: #c66900;
+      --dark: #263238;
+      --light: #f5f7fa;
+      --gray: #78909c;
+      --white: #ffffff;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      color: var(--dark);
+      background-color: var(--light);
+      overflow-x: hidden;
+    }
+
+    /* Header Styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.98);
+      box-shadow: var(--shadow);
+      z-index: 1000;
+      transition: var(--transition);
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(10px);
+      transform: translateY(0);
+    }
+
+    header.hidden {
+      transform: translateY(-100%);
+    }
+
+    header.scrolled {
+      padding: 0.8rem 2rem;
+      background-color: var(--white);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+    }
+
+    .logo span {
+      color: var(--secondary);
+    }
+
+    .desktop-menu ul {
+      display: flex;
+      list-style: none;
+    }
+
+    .desktop-menu li {
+      margin-left: 2.2rem;
+    }
+
+    .desktop-menu a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      position: relative;
+      transition: var(--transition);
+      padding: 0.5rem 0;
+      font-size: 0.95rem;
+    }
+
+    .desktop-menu a:hover {
+      color: var(--primary);
+    }
+
+    .desktop-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: var(--transition);
+    }
+
+    .desktop-menu a:hover::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--dark);
+      transition: var(--transition);
+    }
+
+    .menu-toggle:hover {
+      color: var(--primary);
+    }
+
+    /* SIDEBAR MENU (mobile) */
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 280px;
+      height: 100%;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      color: #2c3e50;
+      transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 1000;
+      padding-top: 80px;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+      border-right: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    #sidebar.show {
+      left: 0;
+    }
+
+    #sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #sidebar li {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      transform: translateX(-20px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    #sidebar.show li {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    #sidebar.show li:nth-child(1) { transition-delay: 0.1s; }
+    #sidebar.show li:nth-child(2) { transition-delay: 0.15s; }
+    #sidebar.show li:nth-child(3) { transition-delay: 0.2s; }
+    #sidebar.show li:nth-child(4) { transition-delay: 0.25s; }
+    #sidebar.show li:nth-child(5) { transition-delay: 0.3s; }
+    #sidebar.show li:nth-child(6) { transition-delay: 0.35s; }
+
+    #sidebar a {
+      color: #2c3e50;
+      text-decoration: none;
+      display: block;
+      padding: 16px 24px;
+      font-weight: 500;
+      font-size: 15px;
+      border-left: 4px solid transparent;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #sidebar a:hover {
+      background-color: rgba(13, 71, 161, 0.05);
+      border-left: 4px solid var(--primary);
+      color: var(--primary);
+      padding-left: 28px;
+    }
+
+    /* OVERLAY */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+      z-index: 999;
+    }
+
+    .overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Page Header */
+    .page-header {
+      background: linear-gradient(135deg, rgba(13, 71, 161, 0.9) 0%, rgba(13, 71, 161, 0.7) 100%), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80') center/cover no-repeat;
+      padding: 160px 2rem 80px;
+      text-align: center;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23000000' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+      opacity: 0.3;
+    }
+
+    .page-header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      opacity: 0.9;
+    }
+
+    /* Search Section */
+    .search-section {
+      padding: 3rem 2rem;
+      background-color: var(--white);
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .search-container {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .search-box {
+      display: flex;
+      box-shadow: var(--shadow);
+      border-radius: 50px;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .search-box:focus-within {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px);
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 1.2rem 1.5rem;
+      border: none;
+      font-size: 1.1rem;
+      outline: none;
+      background-color: var(--light);
+    }
+
+    .search-button {
+      background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+      color: var(--white);
+      border: none;
+      padding: 0 2rem;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+
+    .search-button:hover {
+      background: linear-gradient(135deg, var(--secondary-dark), var(--secondary));
+    }
+
+    /* Course Categories */
+    .categories-section {
+      padding: 5rem 2rem;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      position: relative;
+    }
+
+    .categories-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%230d47a1' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: var(--gray);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .category-card {
+      background-color: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .category-card.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .category-card:hover {
+      transform: translateY(-15px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .category-image {
+      height: 180px;
+      width: 100%;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .category-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(13, 71, 161, 0.7) 0%, rgba(13, 71, 161, 0.3) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .category-card:hover .category-overlay {
+      opacity: 1;
+    }
+
+    .category-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.9;
+    }
+
+    .category-header {
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      padding: 1.5rem 2rem;
+      color: var(--white);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-header h2 {
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+
+    .category-content {
+      padding: 2rem;
+    }
+
+    .category-content p {
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    .category-courses {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .category-courses li {
+      padding: 0.8rem 0;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #f0f0f0;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .category-courses li:hover {
+      background-color: rgba(13, 71, 161, 0.03);
+      padding-left: 10px;
+      color: var(--primary);
+    }
+
+    .category-courses li:last-child {
+      border-bottom: none;
+    }
+
+    .category-courses li i {
+      color: var(--secondary);
+      margin-right: 1rem;
+      font-size: 1rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .category-link {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+      color: var(--white);
+      padding: 0.8rem 1.8rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(255, 152, 0, 0.2);
+      width: 100%;
+      text-align: center;
+    }
+
+    .category-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 152, 0, 0.3);
+    }
+
+    /* Course Details Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
+      overflow-y: auto;
+      padding: 2rem;
+    }
+
+    .modal-content {
+      background-color: var(--white);
+      max-width: 900px;
+      margin: 2rem auto;
+      border-radius: 16px;
+      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+      position: relative;
+      animation: modalFadeIn 0.3s ease;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      color: var(--gray);
+      cursor: pointer;
+      z-index: 10;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: var(--transition);
+    }
+
+    .close-modal:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      color: var(--dark);
+    }
+
+    .modal-header {
+      background-size: cover;
+      background-position: center;
+      padding: 3rem 2.5rem;
+      color: var(--white);
+      border-radius: 16px 16px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .modal-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(13, 71, 161, 0.8) 0%, rgba(13, 71, 161, 0.4) 100%);
+    }
+
+    .modal-header h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .modal-header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      position: relative;
+      z-index: 1;
+    }
+
+    .modal-body {
+      padding: 3rem 2.5rem;
+    }
+
+    .course-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .info-item {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: var(--light);
+      border-radius: 12px;
+      transition: var(--transition);
+    }
+
+    .info-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .info-item i {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .info-item h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+
+    .info-item p {
+      color: var(--gray);
+      font-weight: 500;
+    }
+
+    .course-description {
+      margin-bottom: 3rem;
+    }
+
+    .course-description h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+
+    .course-description p {
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .course-curriculum {
+      margin-bottom: 3rem;
+    }
+
+    .course-curriculum h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+
+    .curriculum-list {
+      list-style: none;
+    }
+
+    .curriculum-list li {
+      padding: 1rem 0;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+    }
+
+    .curriculum-list li:last-child {
+      border-bottom: none;
+    }
+
+    .curriculum-list li i {
+      color: var(--secondary);
+      margin-right: 1rem;
+      font-size: 1rem;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 2.5rem;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .course-price {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .enroll-button {
+      background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+      color: var(--white);
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(255, 152, 0, 0.2);
+    }
+
+    .enroll-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 152, 0, 0.3);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+      padding: 6rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+      opacity: 0.3;
+    }
+
+    .cta-section h2 {
+      font-size: 2.8rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-section p {
+      font-size: 1.2rem;
+      margin-bottom: 3rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 1;
+      line-height: 1.6;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+      color: var(--white);
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      box-shadow: 0 6px 20px rgba(255, 152, 0, 0.3);
+    }
+
+    .cta:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(255, 152, 0, 0.4);
+    }
+
+    .cta-secondary {
+      display: inline-block;
+      background: transparent;
+      color: var(--white);
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      border: 2px solid rgba(255, 255, 255, 0.7);
+    }
+
+    .cta-secondary:hover {
+      background-color: var(--white);
+      color: var(--primary);
+      border-color: var(--white);
+      transform: translateY(-5px);
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+      color: var(--white);
+      padding: 4rem 2rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+      opacity: 0.3;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-logo {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-logo span {
+      color: var(--secondary-light);
+    }
+
+    .footer-text {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 2.5rem;
+      max-width: 700px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .social-links a {
+      color: var(--white);
+      font-size: 1.5rem;
+      transition: var(--transition);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .social-links a:hover {
+      color: var(--secondary-light);
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .copyright {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 2rem;
+      width: 100%;
+    }
+
+    /* Back to Top Button */
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--white);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.3rem;
+      box-shadow: 0 6px 20px rgba(13, 71, 161, 0.3);
+      transition: var(--transition);
+      opacity: 0;
+      visibility: hidden;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #backToTop.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #backToTop:hover {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(13, 71, 161, 0.4);
+    }
+
+    /* Scroll Progress Bar */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      z-index: 1001;
+      transition: width 0.3s ease;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .desktop-menu {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .page-header h1 {
+        font-size: 2.5rem;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .page-header h1 {
+        font-size: 2.2rem;
+      }
+
+      .section-title {
+        font-size: 2.2rem;
+      }
+
+      .cta-section h2 {
+        font-size: 2.2rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .categories-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-footer {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+      }
+
+      .course-info {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 576px) {
+      header {
+        padding: 1rem 1.5rem;
+      }
+
+      .page-header {
+        padding: 140px 1.5rem 60px;
+      }
+
+      .page-header h1 {
+        font-size: 2rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .category-header, .category-content {
+        padding: 1.5rem;
+      }
+
+      .modal-header, .modal-body {
+        padding: 2rem 1.5rem;
+      }
+
+      .cta, .cta-secondary {
+        padding: 0.9rem 2rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+<button id="backToTop" title="Go to top"><i class="fas fa-chevron-up"></i></button>
+
+<header>
+  <div class="menu-toggle" id="menu-toggle">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <div class="logo">
+    VOL<span>TIX</span>
+  </div>
+
+  <!-- Desktop horizontal menu -->
+  <nav class="desktop-menu">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="programs.html">Programs</a></li>
+      <li><a href="courses.html" class="active">Courses</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="board.html">Board & Sponsors</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Sidebar nav for mobile -->
+<nav id="sidebar">
+  <ul>
+    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+    <li><a href="programs.html"><i class="fas fa-graduation-cap"></i> Programs</a></li>
+    <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+    <li><a href="services.html"><i class="fas fa-tools"></i> Services</a></li>
+    <li><a href="board.html"><i class="fas fa-users"></i> Board & Sponsors</a></li>
+    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+  </ul>
+</nav>
+
+<div class="overlay" id="overlay"></div>
+
+<section class="page-header">
+  <h1>Course Catalog</h1>
+  <p>Explore our comprehensive range of technical and vocational courses designed to equip you with in-demand skills for today's job market</p>
+</section>
+
+<section class="search-section">
+  <div class="search-container">
+    <div class="search-box">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search for courses, skills, or topics...">
+      <button class="search-button" id="searchButton">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="categories-section">
+  <div class="section-header">
+    <h2 class="section-title">Course Categories</h2>
+    <p class="section-subtitle">Browse our extensive course catalog organized by field and specialization</p>
+  </div>
+  
+  <div class="categories-grid" id="categoriesGrid">
+    <!-- Categories will be populated by JavaScript -->
+  </div>
+</section>
+
+<!-- Course Details Modal -->
+<div class="modal" id="courseModal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeModal">&times;</span>
+    <div class="modal-header" id="modalHeader">
+      <h2 id="modalCourseTitle">Course Title</h2>
+      <p id="modalCourseCategory">Category</p>
+    </div>
+    <div class="modal-body">
+      <div class="course-info">
+        <div class="info-item">
+          <i class="fas fa-clock"></i>
+          <h3>Duration</h3>
+          <p id="modalCourseDuration">3 Months</p>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-user-graduate"></i>
+          <h3>Level</h3>
+          <p id="modalCourseLevel">Beginner</p>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-chalkboard-teacher"></i>
+          <h3>Format</h3>
+          <p id="modalCourseFormat">Hybrid</p>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-certificate"></i>
+          <h3>Certificate</h3>
+          <p id="modalCourseCertificate">Yes</p>
+        </div>
+      </div>
+      
+      <div class="course-description">
+        <h3>Course Description</h3>
+        <p id="modalCourseDescription">Course description will appear here...</p>
+      </div>
+      
+      <div class="course-curriculum">
+        <h3>What You'll Learn</h3>
+        <ul class="curriculum-list" id="modalCourseCurriculum">
+          <!-- Curriculum items will be populated by JavaScript -->
+        </ul>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="course-price" id="modalCoursePrice">GH₵ 1,200</div>
+      <button class="enroll-button" id="enrollButton">Enroll Now</button>
+    </div>
+  </div>
+</div>
+
+<section class="cta-section">
+  <h2>Ready to Start Your Learning Journey?</h2>
+  <p>Join thousands of students who have transformed their careers through our practical, industry-focused courses.</p>
+  <div class="cta-buttons">
+    <a href="courses.html" class="cta">View All Programs</a>
+    <a href="contact.html" class="cta-secondary">Contact Admissions</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-logo">VOL<span>TIX</span></div>
+    <p class="footer-text">Ghana's Premier Institute & Technical Services Provider, transforming education and providing professional electrical solutions through technology, innovation and excellence.</p>
+    
+    <div class="social-links">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    
+    <p class="copyright">&copy; 2025 VOLTIX Institute & Technical Services | Transforming Vocational Education in Ghana</p>
+  </div>
+</footer>
+
+<script>
+  // Course data with cover images
+  const courseCategories = [
+    {
+      id: "management",
+      title: "Management",
+      icon: "fas fa-users-cog",
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Develop leadership and organizational skills for effective business management.",
+      courses: [
+        "Project Management",
+        "Strategic Leadership",
+        "Operations Management",
+        "Human Resource Management",
+        "Financial Management"
+      ]
+    },
+    {
+      id: "health-safety",
+      title: "Health Safety and Environment",
+      icon: "fas fa-shield-alt",
+      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Learn to create safe and healthy work environments while protecting our planet.",
+      courses: [
+        "Occupational Health & Safety",
+        "Environmental Management",
+        "Workplace Safety Compliance",
+        "Emergency Response Planning",
+        "Risk Assessment & Management"
+      ]
+    },
+    {
+      id: "business-management",
+      title: "Business and Management",
+      icon: "fas fa-chart-line",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      description: "Master the fundamentals of business operations and strategic management.",
+      courses: [
+        "Business Administration",
+        "Entrepreneurship",
+        "Marketing Management",
+        "Supply Chain Management",
+        "Business Analytics"
+      ]
+    },
+    {
+      id: "information-technology",
+      title: "Information Technology",
+      icon: "fas fa-laptop-code",
+      image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80",
+      description: "Build technical skills in software development, networking, and IT infrastructure.",
+      courses: [
+        "Software Development",
+        "Network Administration",
+        "Cybersecurity Fundamentals",
+        "Database Management",
+        "Cloud Computing"
+      ]
+    },
+    {
+      id: "human-resources",
+      title: "Human Resources",
+      icon: "fas fa-user-tie",
+      image: "https://images.unsplash.com/photo-1551836026-d5c88ac5c73d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Develop expertise in talent acquisition, employee development, and HR strategy.",
+      courses: [
+        "Talent Acquisition",
+        "Performance Management",
+        "Compensation & Benefits",
+        "Employee Relations",
+        "HR Analytics"
+      ]
+    },
+    {
+      id: "sales-marketing",
+      title: "Sales and Marketing",
+      icon: "fas fa-bullhorn",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2015&q=80",
+      description: "Learn effective strategies for customer acquisition, retention, and brand building.",
+      courses: [
+        "Digital Marketing",
+        "Sales Techniques",
+        "Brand Management",
+        "Customer Relationship Management",
+        "Market Research"
+      ]
+    },
+    {
+      id: "personal-development",
+      title: "Personal Development",
+      icon: "fas fa-user-graduate",
+      image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Enhance your personal skills, productivity, and professional growth.",
+      courses: [
+        "Communication Skills",
+        "Time Management",
+        "Leadership Development",
+        "Critical Thinking",
+        "Emotional Intelligence"
+      ]
+    },
+    {
+      id: "finance-accounting",
+      title: "Finance and Accounting",
+      icon: "fas fa-chart-pie",
+      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80",
+      description: "Master financial principles, accounting practices, and investment strategies.",
+      courses: [
+        "Financial Accounting",
+        "Managerial Accounting",
+        "Taxation",
+        "Investment Analysis",
+        "Corporate Finance"
+      ]
+    },
+    {
+      id: "education-training",
+      title: "Education and Training",
+      icon: "fas fa-chalkboard-teacher",
+      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
+      description: "Develop skills for effective teaching, training, and educational leadership.",
+      courses: [
+        "Instructional Design",
+        "Curriculum Development",
+        "Adult Learning Principles",
+        "Educational Technology",
+        "Assessment & Evaluation"
+      ]
+    },
+    {
+      id: "legal-compliance",
+      title: "Legal and Compliance",
+      icon: "fas fa-balance-scale",
+      image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Understand legal frameworks and compliance requirements for business operations.",
+      courses: [
+        "Business Law",
+        "Regulatory Compliance",
+        "Contract Management",
+        "Corporate Governance",
+        "Ethics & Professional Conduct"
+      ]
+    },
+    {
+      id: "language-communication",
+      title: "Language and Communication",
+      icon: "fas fa-comments",
+      image: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
+      description: "Improve your communication skills in multiple languages and contexts.",
+      courses: [
+        "Business Communication",
+        "Public Speaking",
+        "English Language Proficiency",
+        "French Language",
+        "Technical Writing"
+      ]
+    },
+    {
+      id: "hospitality-management",
+      title: "Hospitality Management",
+      icon: "fas fa-concierge-bell",
+      image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Learn the art of hospitality, customer service, and tourism management.",
+      courses: [
+        "Hotel Operations",
+        "Food & Beverage Management",
+        "Tourism Management",
+        "Event Planning",
+        "Customer Service Excellence"
+      ]
+    },
+    {
+      id: "professional-courses",
+      title: "Professional Courses",
+      icon: "fas fa-briefcase",
+      image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Specialized courses for career advancement and professional certification.",
+      courses: [
+        "Professional Certification Programs",
+        "Career Development",
+        "Industry-Specific Training",
+        "Executive Education",
+        "Continuing Professional Development"
+      ]
+    },
+    {
+      id: "technology",
+      title: "Technology",
+      icon: "fas fa-microchip",
+      image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80",
+      description: "Stay ahead with cutting-edge technology skills and digital transformation.",
+      courses: [
+        "Emerging Technologies",
+        "IT Infrastructure",
+        "Software Engineering",
+        "Data Science",
+        "Internet of Things"
+      ]
+    },
+    {
+      id: "law",
+      title: "Law",
+      icon: "fas fa-gavel",
+      image: "https://images.unsplash.com/photo-1589391886645-d51941baf7fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Explore legal principles, practices, and specialized areas of law.",
+      courses: [
+        "Legal Studies",
+        "Constitutional Law",
+        "Criminal Law",
+        "Civil Litigation",
+        "Legal Research & Writing"
+      ]
+    },
+    {
+      id: "nulge",
+      title: "NULGE",
+      icon: "fas fa-landmark",
+      image: "https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Courses designed for local government employees and public administration.",
+      courses: [
+        "Local Government Administration",
+        "Public Policy",
+        "Community Development",
+        "Public Finance",
+        "Municipal Services"
+      ]
+    },
+    {
+      id: "sport",
+      title: "SPORT",
+      icon: "fas fa-running",
+      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Develop skills in sports management, coaching, and athletic training.",
+      courses: [
+        "Sports Management",
+        "Athletic Coaching",
+        "Sports Marketing",
+        "Fitness Training",
+        "Sports Medicine"
+      ]
+    },
+    {
+      id: "theology",
+      title: "THEOLOGY",
+      icon: "fas fa-pray",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      description: "Explore religious studies, theological principles, and ministerial training.",
+      courses: [
+        "Biblical Studies",
+        "Theological Ethics",
+        "Pastoral Care",
+        "Religious Education",
+        "Church Administration"
+      ]
+    },
+    {
+      id: "disaster",
+      title: "DISASTER",
+      icon: "fas fa-first-aid",
+      image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Learn disaster management, emergency response, and risk reduction strategies.",
+      courses: [
+        "Disaster Risk Management",
+        "Emergency Response",
+        "Humanitarian Assistance",
+        "Crisis Communication",
+        "Recovery & Rehabilitation"
+      ]
+    },
+    {
+      id: "algon",
+      title: "ALGON",
+      icon: "fas fa-university",
+      image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1973&q=80",
+      description: "Courses for local government officials and administrators.",
+      courses: [
+        "Local Governance",
+        "Public Administration",
+        "Rural Development",
+        "Intergovernmental Relations",
+        "Policy Implementation"
+      ]
+    },
+    {
+      id: "customer-service",
+      title: "Customer Service",
+      icon: "fas fa-headset",
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Master the art of customer satisfaction and service excellence.",
+      courses: [
+        "Customer Experience Management",
+        "Service Quality",
+        "Call Center Operations",
+        "Customer Retention",
+        "Service Recovery"
+      ]
+    },
+    {
+      id: "technical-vocational",
+      title: "Technical and Vocational Training",
+      icon: "fas fa-tools",
+      image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Hands-on technical skills for various trades and vocational professions.",
+      courses: [
+        "Electrical Installation",
+        "Plumbing",
+        "Carpentry",
+        "Welding",
+        "Automotive Repair"
+      ]
+    },
+    {
+      id: "health-wellness",
+      title: "Health and Wellness",
+      icon: "fas fa-heartbeat",
+      image: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80",
+      description: "Promote health, wellness, and holistic approaches to wellbeing.",
+      courses: [
+        "Health Promotion",
+        "Nutrition & Dietetics",
+        "Mental Health First Aid",
+        "Wellness Coaching",
+        "Alternative Medicine"
+      ]
+    },
+    {
+      id: "creative-arts",
+      title: "Creative Arts and Media",
+      icon: "fas fa-palette",
+      image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Develop creative skills in arts, design, and media production.",
+      courses: [
+        "Graphic Design",
+        "Photography",
+        "Video Production",
+        "Digital Arts",
+        "Creative Writing"
+      ]
+    },
+    {
+      id: "environment-sustainability",
+      title: "Environment and Sustainability",
+      icon: "fas fa-leaf",
+      image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80",
+      description: "Learn sustainable practices and environmental conservation methods.",
+      courses: [
+        "Sustainable Development",
+        "Environmental Conservation",
+        "Renewable Energy",
+        "Waste Management",
+        "Climate Change Adaptation"
+      ]
+    },
+    {
+      id: "engineering-technology",
+      title: "Engineering and Technology",
+      icon: "fas fa-cogs",
+      image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Technical courses in various engineering disciplines and technology applications.",
+      courses: [
+        "Civil Engineering",
+        "Mechanical Engineering",
+        "Electrical Engineering",
+        "Computer Engineering",
+        "Industrial Technology"
+      ]
+    },
+    {
+      id: "public-services",
+      title: "Public Services",
+      icon: "fas fa-users",
+      image: "https://images.unsplash.com/photo-1551135049-8a33b4273818?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Training for careers in public service and community development.",
+      courses: [
+        "Public Administration",
+        "Social Work",
+        "Community Development",
+        "Public Health",
+        "Nonprofit Management"
+      ]
+    },
+    {
+      id: "digital-tools",
+      title: "Digital and Online Tools",
+      icon: "fas fa-desktop",
+      image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80",
+      description: "Master digital tools and platforms for productivity and online presence.",
+      courses: [
+        "Digital Literacy",
+        "Office Software",
+        "Social Media Management",
+        "E-commerce Platforms",
+        "Collaboration Tools"
+      ]
+    },
+    {
+      id: "artificial-intelligence",
+      title: "Artificial Intelligence (AI)",
+      icon: "fas fa-robot",
+      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Explore the fundamentals and applications of artificial intelligence.",
+      courses: [
+        "AI Fundamentals",
+        "Machine Learning",
+        "Natural Language Processing",
+        "Computer Vision",
+        "AI Ethics"
+      ]
+    },
+    {
+      id: "international-development",
+      title: "International Development",
+      icon: "fas fa-globe-africa",
+      image: "https://images.unsplash.com/photo-1527689361190-bcfc908e8624?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Understand global development issues and international cooperation.",
+      courses: [
+        "Development Studies",
+        "International Relations",
+        "Global Health",
+        "Humanitarian Aid",
+        "Cross-Cultural Communication"
+      ]
+    },
+    {
+      id: "social-sciences",
+      title: "Social Sciences",
+      icon: "fas fa-globe-americas",
+      image: "https://images.unsplash.com/photo-1551836026-d5c88ac5c73d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      description: "Study human society, behavior, and social structures.",
+      courses: [
+        "Sociology",
+        "Psychology",
+        "Anthropology",
+        "Political Science",
+        "Economics"
+      ]
+    },
+    {
+      id: "digital-skills",
+      title: "Digital Skills",
+      icon: "fas fa-laptop",
+      image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80",
+      description: "Essential digital skills for the modern workplace and everyday life.",
+      courses: [
+        "Digital Literacy",
+        "Coding Fundamentals",
+        "Data Analysis",
+        "Cybersecurity Awareness",
+        "Digital Marketing"
+      ]
+    }
+  ];
+
+  // Course details for modal
+  const courseDetails = {
+    "Project Management": {
+      duration: "3 Months",
+      level: "Intermediate",
+      format: "Hybrid",
+      certificate: "Yes",
+      description: "This comprehensive project management course covers the essential principles, methodologies, and tools needed to successfully plan, execute, and complete projects. You'll learn how to define project scope, create work breakdown structures, develop realistic schedules, manage budgets, and lead project teams effectively.",
+      curriculum: [
+        "Project initiation and planning",
+        "Scope and requirement management",
+        "Time and cost estimation",
+        "Risk identification and mitigation",
+        "Stakeholder management",
+        "Quality assurance and control",
+        "Agile and traditional methodologies"
+      ],
+      price: "GH₵ 1,200",
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+    },
+    "Software Development": {
+      duration: "6 Months",
+      level: "Beginner to Advanced",
+      format: "Online",
+      certificate: "Yes",
+      description: "Learn the fundamentals of software development including programming concepts, data structures, algorithms, and software engineering principles. This course provides hands-on experience with popular programming languages and development tools.",
+      curriculum: [
+        "Programming fundamentals with Python/JavaScript",
+        "Data structures and algorithms",
+        "Object-oriented programming",
+        "Web development (HTML, CSS, JavaScript)",
+        "Database design and SQL",
+        "Version control with Git",
+        "Software testing and debugging"
+      ],
+      price: "GH₵ 2,500",
+      image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80"
+    },
+    "Digital Marketing": {
+      duration: "2 Months",
+      level: "Beginner",
+      format: "Hybrid",
+      certificate: "Yes",
+      description: "Master the essentials of digital marketing including SEO, social media marketing, content strategy, email marketing, and analytics. Learn how to create effective digital campaigns that drive results.",
+      curriculum: [
+        "Search Engine Optimization (SEO)",
+        "Social Media Marketing Strategies",
+        "Content Marketing and Creation",
+        "Email Marketing Campaigns",
+        "Pay-Per-Click Advertising",
+        "Marketing Analytics and Metrics",
+        "Conversion Rate Optimization"
+      ],
+      price: "GH₵ 900",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2015&q=80"
+    }
+  };
+
+  // Mobile menu functionality
+  const toggle = document.getElementById("menu-toggle");
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("overlay");
+
+  toggle.onclick = () => {
+    sidebar.classList.add("show");
+    overlay.classList.add("show");
+    document.body.style.overflow = 'hidden';
+  };
+
+  overlay.onclick = () => {
+    sidebar.classList.remove("show");
+    overlay.classList.remove("show");
+    document.body.style.overflow = 'auto';
+  };
+
+  document.querySelectorAll("#sidebar a").forEach(link => {
+    link.onclick = () => {
+      sidebar.classList.remove("show");
+      overlay.classList.remove("show");
+      document.body.style.overflow = 'auto';
+    };
+  });
+
+  // Back to top button
+  const backToTopBtn = document.getElementById("backToTop");
+  
+  // Scroll progress bar
+  const scrollProgress = document.getElementById("scrollProgress");
+  
+  // Header hide/show on scroll
+  let lastScrollTop = 0;
+  const header = document.querySelector('header');
+  
+  window.onscroll = () => {
+    // Show/hide back to top button
+    if (document.documentElement.scrollTop > 300) {
+      backToTopBtn.classList.add("show");
+    } else {
+      backToTopBtn.classList.remove("show");
+    }
+    
+    // Header background on scroll
+    if (document.documentElement.scrollTop > 100) {
+      document.querySelector("header").classList.add("scrolled");
+    } else {
+      document.querySelector("header").classList.remove("scrolled");
+    }
+    
+    // Scroll progress bar
+    const winHeight = window.innerHeight;
+    const docHeight = document.documentElement.scrollHeight - winHeight;
+    const scrolled = (window.scrollY / docHeight) * 100;
+    scrollProgress.style.width = scrolled + '%';
+    
+    // Header hide/show on scroll
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollTop > lastScrollTop && scrollTop > 100) {
+      header.classList.add("hidden");
+    } else {
+      header.classList.remove("hidden");
+    }
+    lastScrollTop = scrollTop;
+    
+    // Animate elements on scroll
+    animateOnScroll();
+  };
+
+  // Scroll to top when clicked
+  backToTopBtn.onclick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // Animation on scroll function
+  function animateOnScroll() {
+    const elements = document.querySelectorAll('.category-card');
+    
+    elements.forEach(element => {
+      const elementPosition = element.getBoundingClientRect().top;
+      const screenPosition = window.innerHeight / 1.2;
+      
+      if (elementPosition < screenPosition) {
+        element.classList.add('animate');
+      }
+    });
+  }
+
+  // Populate categories grid
+  function populateCategories() {
+    const categoriesGrid = document.getElementById('categoriesGrid');
+    
+    courseCategories.forEach(category => {
+      const categoryCard = document.createElement('div');
+      categoryCard.className = 'category-card';
+      categoryCard.setAttribute('data-category', category.id);
+      
+      categoryCard.innerHTML = `
+        <div class="category-image" style="background-image: url('${category.image}')">
+          <div class="category-overlay">
+            <div class="category-icon">
+              <i class="${category.icon}"></i>
+            </div>
+          </div>
+        </div>
+        <div class="category-header">
+          <h2>${category.title}</h2>
+        </div>
+        <div class="category-content">
+          <p>${category.description}</p>
+          <ul class="category-courses">
+            ${category.courses.map(course => `<li><i class="fas fa-book"></i> ${course}</li>`).join('')}
+          </ul>
+          <a href="#" class="category-link" data-category="${category.id}">Explore Courses</a>
+        </div>
+      `;
+      
+      categoriesGrid.appendChild(categoryCard);
+    });
+    
+    // Add click event to category links
+    document.querySelectorAll('.category-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const categoryId = this.getAttribute('data-category');
+        showCategoryCourses(categoryId);
+      });
+    });
+  }
+
+  // Show courses for a specific category
+  function showCategoryCourses(categoryId) {
+    const category = courseCategories.find(cat => cat.id === categoryId);
+    if (!category) return;
+    
+    // For demo purposes, we'll show the first course in the modal
+    if (category.courses.length > 0) {
+      showCourseDetails(category.courses[0]);
+    }
+  }
+
+  // Modal functionality
+  const modal = document.getElementById('courseModal');
+  const closeModal = document.getElementById('closeModal');
+  const enrollButton = document.getElementById('enrollButton');
+  const modalHeader = document.getElementById('modalHeader');
+
+  // Close modal when clicking the X
+  closeModal.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // Close modal when clicking outside
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  // Show course details in modal
+  function showCourseDetails(courseName) {
+    const courseDetail = courseDetails[courseName] || {
+      duration: "3 Months",
+      level: "Beginner",
+      format: "Hybrid",
+      certificate: "Yes",
+      description: "This course provides comprehensive training in the subject area. More details will be available soon.",
+      curriculum: [
+        "Fundamental concepts and principles",
+        "Practical applications and case studies",
+        "Industry best practices",
+        "Hands-on projects and exercises",
+        "Assessment and certification"
+      ],
+      price: "GH₵ 1,000",
+      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80"
+    };
+    
+    document.getElementById('modalCourseTitle').textContent = courseName;
+    document.getElementById('modalCourseCategory').textContent = "Professional Course";
+    document.getElementById('modalCourseDuration').textContent = courseDetail.duration;
+    document.getElementById('modalCourseLevel').textContent = courseDetail.level;
+    document.getElementById('modalCourseFormat').textContent = courseDetail.format;
+    document.getElementById('modalCourseCertificate').textContent = courseDetail.certificate;
+    document.getElementById('modalCourseDescription').textContent = courseDetail.description;
+    document.getElementById('modalCoursePrice').textContent = courseDetail.price;
+    
+    // Set the modal header background image
+    modalHeader.style.backgroundImage = `url('${courseDetail.image}')`;
+    
+    const curriculumList = document.getElementById('modalCourseCurriculum');
+    curriculumList.innerHTML = '';
+    
+    courseDetail.curriculum.forEach(item => {
+      const li = document.createElement('li');
+      li.innerHTML = `<i class="fas fa-check"></i> ${item}`;
+      curriculumList.appendChild(li);
+    });
+    
+    // Set enroll button to redirect to contact page with course info
+    enrollButton.onclick = function() {
+      window.location.href = `contact.html?course=${encodeURIComponent(courseName)}`;
+    }
+    
+    modal.style.display = "block";
+  }
+
+  // Search functionality
+  const searchInput = document.getElementById('searchInput');
+  const searchButton = document.getElementById('searchButton');
+  
+  searchButton.addEventListener('click', performSearch);
+  searchInput.addEventListener('keyup', function(event) {
+    if (event.key === 'Enter') {
+      performSearch();
+    }
+  });
+  
+  function performSearch() {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    
+    if (searchTerm === '') {
+      // Reset to show all categories
+      document.querySelectorAll('.category-card').forEach(card => {
+        card.style.display = 'block';
+      });
+      return;
+    }
+    
+    // Search through categories and courses
+    document.querySelectorAll('.category-card').forEach(card => {
+      const categoryTitle = card.querySelector('h2').textContent.toLowerCase();
+      const categoryDescription = card.querySelector('p').textContent.toLowerCase();
+      const courses = Array.from(card.querySelectorAll('.category-courses li')).map(li => li.textContent.toLowerCase());
+      
+      const matches = categoryTitle.includes(searchTerm) || 
+                     categoryDescription.includes(searchTerm) || 
+                     courses.some(course => course.includes(searchTerm));
+      
+      card.style.display = matches ? 'block' : 'none';
+    });
+  }
+
+  // Initialize page
+  window.onload = () => {
+    populateCategories();
+    animateOnScroll();
+    
+    // Add click events to course items
+    document.addEventListener('click', function(e) {
+      if (e.target && e.target.matches('.category-courses li')) {
+        const courseName = e.target.textContent.trim();
+        showCourseDetails(courseName);
+      }
+    });
+  };
+</script>
+
+</body>
+</html>
