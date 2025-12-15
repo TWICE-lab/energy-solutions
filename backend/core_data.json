@@ -1,0 +1,193 @@
+[
+{
+  "model": "core.course",
+  "pk": 1,
+  "fields": {
+    "title": "Solar Energy Fundamentals",
+    "description": "Learn the basics of solar energy systems and how they work.",
+    "duration": "40",
+    "price": "199.99",
+    "image": "",
+    "created_at": "2025-12-08T23:27:55.057Z",
+    "updated_at": "2025-12-08T23:27:55.057Z"
+  }
+},
+{
+  "model": "core.course",
+  "pk": 2,
+  "fields": {
+    "title": "Wind Power Systems",
+    "description": "Comprehensive guide to wind turbines and renewable wind energy.",
+    "duration": "35",
+    "price": "179.99",
+    "image": "",
+    "created_at": "2025-12-08T23:27:55.057Z",
+    "updated_at": "2025-12-08T23:27:55.057Z"
+  }
+},
+{
+  "model": "core.course",
+  "pk": 3,
+  "fields": {
+    "title": "Energy Storage Solutions",
+    "description": "Explore battery storage and grid-scale energy storage technologies.",
+    "duration": "45",
+    "price": "249.99",
+    "image": "",
+    "created_at": "2025-12-08T23:27:55.057Z",
+    "updated_at": "2025-12-08T23:27:55.057Z"
+  }
+},
+{
+  "model": "core.service",
+  "pk": 1,
+  "fields": {
+    "name": "Solar Installation",
+    "description": "Professional solar panel installation for residential and commercial properties.",
+    "icon": "sun",
+    "price": "5000.00",
+    "created_at": "2025-12-08T23:27:55.305Z",
+    "updated_at": "2025-12-08T23:27:55.305Z"
+  }
+},
+{
+  "model": "core.service",
+  "pk": 2,
+  "fields": {
+    "name": "Energy Audit",
+    "description": "Complete energy efficiency assessment for your property.",
+    "icon": "chart",
+    "price": "500.00",
+    "created_at": "2025-12-08T23:27:55.305Z",
+    "updated_at": "2025-12-08T23:27:55.305Z"
+  }
+},
+{
+  "model": "core.service",
+  "pk": 3,
+  "fields": {
+    "name": "Wind Turbine Setup",
+    "description": "Installation and maintenance of wind turbine systems.",
+    "icon": "wind",
+    "price": "8000.00",
+    "created_at": "2025-12-08T23:27:55.305Z",
+    "updated_at": "2025-12-08T23:27:55.305Z"
+  }
+},
+{
+  "model": "core.service",
+  "pk": 4,
+  "fields": {
+    "name": "Battery Storage",
+    "description": "Advanced battery storage system installation and optimization.",
+    "icon": "battery",
+    "price": "6000.00",
+    "created_at": "2025-12-08T23:27:55.305Z",
+    "updated_at": "2025-12-08T23:27:55.305Z"
+  }
+},
+{
+  "model": "core.project",
+  "pk": 1,
+  "fields": {
+    "title": "Downtown Solar Farm",
+    "description": "Large-scale solar installation providing clean energy to 500+ homes.",
+    "image": "",
+    "client": "City Energy Corp",
+    "completion_date": "2024-06-15",
+    "featured": true,
+    "created_at": "2025-12-08T23:27:55.584Z",
+    "updated_at": "2025-12-08T23:27:55.584Z"
+  }
+},
+{
+  "model": "core.project",
+  "pk": 2,
+  "fields": {
+    "title": "Residential Wind Turbine",
+    "description": "Installation of 5kW wind turbine for sustainable home energy.",
+    "image": "",
+    "client": "Green Living Inc",
+    "completion_date": "2024-03-20",
+    "featured": true,
+    "created_at": "2025-12-08T23:27:55.584Z",
+    "updated_at": "2025-12-08T23:27:55.584Z"
+  }
+},
+{
+  "model": "core.project",
+  "pk": 3,
+  "fields": {
+    "title": "Commercial Energy Storage",
+    "description": "100kWh battery storage system for factory peak demand management.",
+    "image": "",
+    "client": "Manufacturing Solutions Ltd",
+    "completion_date": "2024-08-30",
+    "featured": false,
+    "created_at": "2025-12-08T23:27:55.585Z",
+    "updated_at": "2025-12-08T23:27:55.585Z"
+  }
+},
+{
+  "model": "core.project",
+  "pk": 4,
+  "fields": {
+    "title": "Grid-Scale Solar",
+    "description": "25MW solar farm connected to the main power grid.",
+    "image": "",
+    "client": "National Energy Authority",
+    "completion_date": "2024-11-10",
+    "featured": true,
+    "created_at": "2025-12-08T23:27:55.585Z",
+    "updated_at": "2025-12-08T23:27:55.585Z"
+  }
+},
+{
+  "model": "core.teammember",
+  "pk": 1,
+  "fields": {
+    "name": "John Smith",
+    "position": "Solar Energy Expert",
+    "bio": "20+ years experience in renewable energy systems.",
+    "image": "",
+    "email": "john@energysolutions.com",
+    "created_at": "2025-12-08T23:27:55.978Z"
+  }
+},
+{
+  "model": "core.teammember",
+  "pk": 2,
+  "fields": {
+    "name": "Sarah Johnson",
+    "position": "Wind Power Specialist",
+    "bio": "Expert in wind turbine design and installation.",
+    "image": "",
+    "email": "sarah@energysolutions.com",
+    "created_at": "2025-12-08T23:27:55.978Z"
+  }
+},
+{
+  "model": "core.teammember",
+  "pk": 3,
+  "fields": {
+    "name": "Mike Davis",
+    "position": "Energy Engineer",
+    "bio": "Electrical engineer specializing in grid integration.",
+    "image": "",
+    "email": "mike@energysolutions.com",
+    "created_at": "2025-12-08T23:27:55.978Z"
+  }
+},
+{
+  "model": "core.teammember",
+  "pk": 4,
+  "fields": {
+    "name": "Emma Wilson",
+    "position": "Project Manager",
+    "bio": "Manages large-scale renewable energy projects.",
+    "image": "",
+    "email": "emma@energysolutions.com",
+    "created_at": "2025-12-08T23:27:55.978Z"
+  }
+}
+]
